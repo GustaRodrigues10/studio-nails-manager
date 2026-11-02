@@ -4,19 +4,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { App } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
+import { Relatorio } from './pages/relatorio/relatorio.component';
 
 @NgModule({
-  declarations: [
-    App,
-    HomeComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
-  providers: [
-    provideBrowserGlobalErrorListeners()
-  ],
-  bootstrap: [App]
+  declarations: [App, HomeComponent, Relatorio],
+  imports: [BrowserModule, AppRoutingModule],
+  providers: [provideBrowserGlobalErrorListeners()],
+  bootstrap: [App],
 })
 export class AppModule {}
