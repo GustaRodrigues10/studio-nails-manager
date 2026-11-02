@@ -1,0 +1,176 @@
+<aside class="menu-lateral">
+
+  <div class="logo-admin">
+    <h2>amélie</h2>
+    <span>ATELIÊ DE UNHAS</span>
+  </div>
+
+  <p class="titulo-menu">GESTÃO DO ATELIÊ</p>
+
+  <nav>
+    <a routerLink="/relatorio" routerLinkActive="ativo">
+      Relatório
+    </a>
+
+    <a href="#agendamentos">
+      Agendamentos
+    </a>
+
+    <a href="#servicos">
+      Serviços e produtos
+    </a>
+
+    <a href="#clientes">
+      Clientes
+    </a>
+
+    <a href="#equipe">
+      Equipe
+    </a>
+  </nav>
+
+  <div class="rodape-menu">
+    <a routerLink="/">Ver site do ateliê</a>
+  </div>
+
+</aside>
+
+<main class="relatorio">
+
+  <div class="cabecalho-relatorio">
+    <h1>Um olhar sobre o ateliê</h1>
+
+    <p>
+      Acompanhe seus agendamentos e os resultados do seu negócio.
+    </p>
+  </div>
+
+  <section class="indicadores">
+
+    <div class="cartao-indicador">
+      <span>Receita do mês</span>
+      <h2>R$ 12.480</h2>
+      <p>+12,8% em relação a setembro</p>
+    </div>
+
+    <div class="cartao-indicador">
+      <span>Agendamentos</span>
+      <h2>186</h2>
+      <p>+18 novos neste mês</p>
+    </div>
+
+    <div class="cartao-indicador">
+      <span>Ticket médio</span>
+      <h2>R$ 67,10</h2>
+      <p>+5,2% em relação a setembro</p>
+    </div>
+
+    <div class="cartao-indicador">
+      <span>Taxa de ocupação</span>
+      <h2>82%</h2>
+      <p>+8 pontos percentuais</p>
+    </div>
+
+  </section>
+  <section class="secao-grafico">
+
+  <h3>Receita por semana</h3>
+
+  <div class="grafico">
+
+    <div
+      class="coluna-grafico"
+      *ngFor="let receita of receitasSemanais">
+
+      <span class="valor-grafico">
+        {{ receita.valor | currency:'BRL':'symbol':'1.0-0' }}
+      </span>
+
+      <div class="area-barra">
+
+        <div
+          class="barra"
+          [style.height.%]="receita.valor / 4000 * 100">
+        </div>
+
+      </div>
+
+      <span class="semana">
+        {{ receita.semana }}
+      </span>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="secao-agendamentos" id="agendamentos">
+
+  <div class="cabecalho-agendamentos">
+
+  <div>
+    <h3>Agendamentos de hoje</h3>
+    <p>24 de outubro de 2026</p>
+    <select
+  class="filtro-status"
+  [value]="statusSelecionado"
+  (change)="statusSelecionado = $any($event.target).value">
+
+  <option value="Todos os status">Todos os status</option>
+  <option value="Confirmado">Confirmado</option>
+  <option value="Concluído">Concluído</option>
+  <option value="Cancelado">Cancelado</option>
+
+</select>
+  </div>
+
+  <input
+    type="text"
+    placeholder="Buscar cliente..."
+    [value]="pesquisaCliente"
+    (input)="pesquisaCliente = $any($event.target).value"
+    class="campo-pesquisa"
+  >
+
+</div>
+
+  <div class="tabela-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Horário</th>
+          <th>Cliente</th>
+          <th>Serviço</th>
+          <th>Profissional</th>
+          <th>Valor</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let agendamento of agendamentosFiltrados">
+          <td>{{ agendamento.horario }}</td>
+          <td>{{ agendamento.cliente }}</td>
+          <td>{{ agendamento.servico }}</td>
+          <td>{{ agendamento.profissional }}</td>
+          <td>{{ agendamento.valor | currency:'BRL' }}</td>
+          <td>
+            <span
+              class="status"
+              [ngClass]="{
+                'confirmado': agendamento.status === 'Confirmado',
+                'concluido': agendamento.status === 'Concluído',
+                'cancelado': agendamento.status === 'Cancelado'
+              }">
+              {{ agendamento.status }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</section>
+
+</main>

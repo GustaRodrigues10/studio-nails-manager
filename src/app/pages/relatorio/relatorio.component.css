@@ -1,0 +1,295 @@
+/* Área principal do relatório */
+.relatorio {
+  min-height: 100vh;
+  padding: 50px 6%;
+  background-color: #faf6f2;
+}
+
+/* Título do relatório */
+.cabecalho-relatorio {
+  margin-bottom: 35px;
+}
+
+.cabecalho-relatorio h1 {
+  font-family: Georgia, serif;
+  font-size: 36px;
+  font-weight: normal;
+  color: #302b2a;
+  margin-bottom: 10px;
+}
+
+.cabecalho-relatorio p {
+  color: #77706e;
+  font-size: 15px;
+}
+
+/* Organização dos indicadores */
+.indicadores {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* Aparência dos cartões */
+.cartao-indicador {
+  background-color: white;
+  padding: 25px;
+  border: 1px solid #eadfda;
+  border-radius: 10px;
+}
+
+.cartao-indicador span {
+  font-size: 14px;
+  color: #77706e;
+}
+
+.cartao-indicador h2 {
+  font-size: 28px;
+  color: #302b2a;
+  margin: 15px 0;
+}
+
+.cartao-indicador p {
+  font-size: 12px;
+  color: #54795f;
+  margin: 0;
+}
+
+/* Ajuste para telas menores */
+@media (max-width: 1000px) {
+  .indicadores {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .indicadores {
+    grid-template-columns: 1fr;
+  }
+
+  .cabecalho-relatorio h1 {
+    font-size: 28px;
+  }
+}
+
+/* Menu lateral */
+.menu-lateral {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100vh;
+  background-color: #f5ece9;
+  border-right: 1px solid #eadfda;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+}
+
+.logo-admin h2 {
+  font-family: Georgia, serif;
+  font-size: 30px;
+  font-weight: normal;
+  margin: 0;
+}
+
+.logo-admin span {
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+
+.titulo-menu {
+  margin-top: 55px;
+  font-size: 11px;
+  color: #914d60;
+  letter-spacing: 1px;
+}
+
+.menu-lateral nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.menu-lateral a {
+  text-decoration: none;
+  color: #5c5250;
+  padding: 13px 15px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.menu-lateral a:hover,
+.menu-lateral a.ativo {
+  background-color: #ead9dc;
+  color: #914d60;
+}
+
+.rodape-menu {
+  margin-top: auto;
+}
+
+/* Espaço para o menu lateral */
+.relatorio {
+  margin-left: 240px;
+}
+
+/* Ajuste para telas pequenas */
+@media (max-width: 700px) {
+  .menu-lateral {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+
+  .titulo-menu {
+    margin-top: 20px;
+  }
+
+  .relatorio {
+    margin-left: 0;
+  }
+}
+
+  /* Gráfico de receita semanal */
+.secao-grafico {
+  background-color: white;
+  border: 1px solid #eadfda;
+  border-radius: 10px;
+  padding: 25px;
+  margin-top: 30px;
+}
+
+.grafico {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  gap: 15px;
+}
+
+.coluna-grafico {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+}
+
+.area-barra {
+  height: 180px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.barra {
+  width: 65%;
+  background-color: #ead9dc;
+  border-radius: 5px 5px 0 0;
+}
+
+.coluna-grafico:last-child .barra {
+  background-color: #914d60;
+}
+
+/* Tabela de agendamentos */
+.secao-agendamentos {
+  background-color: white;
+  border: 1px solid #eadfda;
+  border-radius: 10px;
+  margin-top: 30px;
+  overflow: hidden;
+}
+
+.cabecalho-agendamentos {
+  padding: 25px;
+}
+
+.cabecalho-agendamentos h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.cabecalho-agendamentos p {
+  margin: 0;
+  color: #77706e;
+  font-size: 13px;
+}
+
+.tabela-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+th {
+  background-color: #f5ece9;
+  text-align: left;
+  padding: 15px;
+  color: #77706e;
+  font-weight: normal;
+}
+
+td {
+  padding: 16px 15px;
+  border-bottom: 1px solid #eadfda;
+  white-space: nowrap;
+}
+
+.status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.confirmado,
+.concluido {
+  background-color: #e5f0e8;
+  color: #54795f;
+}
+
+.cancelado {
+  background-color: #f5e4e7;
+  color: #914d60;
+}
+
+.cabecalho-agendamentos {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.campo-pesquisa {
+  padding: 12px 15px;
+  border: 1px solid #eadfda;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 250px;
+  max-width: 100%;
+  outline: none;
+}
+
+.campo-pesquisa:focus {
+  border-color: #914d60;
+}
+
+.filtro-status {
+  padding: 12px 15px;
+  border: 1px solid #eadfda;
+  border-radius: 6px;
+  background-color: white;
+  color: #302b2a;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.filtro-status:focus {
+  border-color: #914d60;
+}
