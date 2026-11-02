@@ -1,0 +1,69 @@
+<main id="inicio" class="principal">
+  <div class="texto-principal">
+    <span class="subtitulo"> SEU MOMENTO DE CUIDADO, EM PINHEIROS </span>
+
+    <h2>
+      Pequenos rituais.<br />
+      Um novo jeito<br />
+      de se sentir.
+    </h2>
+
+    <p>
+      Unhas bem cuidadas, uma conversa leve e tempo para você. Encontre seu cuidado favorito e
+      agende seu momento na Amélie.
+    </p>
+
+    <a href="#servicos" class="botao-cuidado"> Escolher meu cuidado </a>
+  </div>
+
+  <div class="imagem-principal">
+    <img src="/images/manicure-image.jpg" alt="Mãos com unhas cuidadas" />
+  </div>
+</main>
+<section id="servicos" class="secao-servicos">
+  <span class="subtitulo">ESCOLHA SEU RITUAL</span>
+
+  <h2>Um cuidado para cada momento.</h2>
+
+  <div class="filtros">
+    <button
+      (click)="selecionarCategoria('Todos os serviços')"
+      [class.ativo]="categoriaSelecionada === 'Todos os serviços'"
+    >
+      Todos os serviços
+    </button>
+
+    <button
+      (click)="selecionarCategoria('Mãos e unhas')"
+      [class.ativo]="categoriaSelecionada === 'Mãos e unhas'"
+    >
+      Mãos e unhas
+    </button>
+
+    <button
+      (click)="selecionarCategoria('Pés e bem-estar')"
+      [class.ativo]="categoriaSelecionada === 'Pés e bem-estar'"
+    >
+      Pés e bem-estar
+    </button>
+  </div>
+
+  <div class="lista-servicos">
+    <div class="cartao-servico" *ngFor="let servico of servicosFiltrados">
+      <img class="imagem-servico" [src]="servico.imagem" [alt]="servico.nome" />
+
+      <div class="conteudo-cartao">
+        <h3>{{ servico.nome }}</h3>
+
+        <p>{{ servico.descricao }}</p>
+
+        <div class="informacoes-servico">
+          <strong>{{ servico.preco | currency: 'BRL' }}</strong>
+          <span>{{ servico.duracao }} min</span>
+        </div>
+
+        <a href="#servicos">Conhecer e agendar</a>
+      </div>
+    </div>
+  </div>
+</section>
