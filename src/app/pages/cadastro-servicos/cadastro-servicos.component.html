@@ -1,0 +1,68 @@
+<main class="pagina-cadastro">
+  <header class="cabecalho-cadastro">
+    <span>GESTÃO DO ATELIÊ / SERVIÇOS</span>
+    <h1>Cadastro de serviços</h1>
+    <p>Cadastre e organize os serviços oferecidos pelo ateliê.</p>
+  </header>
+
+  <div class="conteudo-cadastro">
+    <section class="formulario-cadastro">
+      <h2>Informações do serviço</h2>
+
+      <form>
+        <div class="campo">
+          <label for="nome">Nome do serviço</label>
+          <input id="nome" type="text" placeholder="Ex.: Manicure clássica" />
+        </div>
+
+        <div class="campo">
+          <label for="categoria">Categoria</label>
+          <select id="categoria">
+            <option value="">Selecione uma categoria</option>
+            <option value="maos">Mãos e unhas</option>
+            <option value="pes">Pés e bem-estar</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label for="descricao">Descrição</label>
+          <textarea id="descricao" rows="4" placeholder="Descreva o serviço"></textarea>
+        </div>
+
+        <div class="linha-campos">
+          <div class="campo">
+            <label for="preco">Preço (R$)</label>
+            <input id="preco" type="number" min="0" placeholder="45,00" />
+          </div>
+
+          <div class="campo">
+            <label for="duracao">Duração (minutos)</label>
+            <input id="duracao" type="number" min="1" placeholder="45" />
+          </div>
+        </div>
+
+        <div class="campo">
+          <label for="imagem">Imagem do serviço</label>
+          <input id="imagem" type="text" placeholder="/images/manicure-classica.jpg" />
+        </div>
+
+        <div class="botoes-formulario">
+          <button type="reset" class="botao-limpar">Limpar</button>
+
+          <button type="button" class="botao-salvar">Salvar serviço</button>
+        </div>
+      </form>
+    </section>
+
+    <aside class="previa-servico">
+      <h2>Prévia do serviço</h2>
+
+      <img src="/images/manicure-classica.jpg" alt="Exemplo de manicure clássica" />
+
+      <h3>Manicure clássica</h3>
+      <p>Veja aqui como seu serviço aparecerá no catálogo.</p>
+
+      <strong>R$ 45,00</strong>
+    </aside>
+  </div>
+</main>
