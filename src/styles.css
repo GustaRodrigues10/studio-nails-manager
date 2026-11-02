@@ -1,1 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+/* Cores principais do Ateliê Amélie */
+:root {
+  --cor-fundo: #faf6f2;
+  --cor-principal: #914d60;
+  --cor-texto: #302b2a;
+  --cor-suave: #f2e6e4;
+  --cor-branco: #ffffff;
+}
+
+/* Configuração geral */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-family: Arial, sans-serif;
+}
