@@ -5,10 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { App } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { Relatorio } from './pages/relatorio/relatorio.component';
+import { CadastroServicos } from './pages/cadastro-servicos/cadastro-servicos.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [App, HomeComponent, Relatorio],
-  imports: [BrowserModule, AppRoutingModule],
+  declarations: [App, HomeComponent, Relatorio, CadastroServicos],
+  imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [provideBrowserGlobalErrorListeners()],
   bootstrap: [App],
 })

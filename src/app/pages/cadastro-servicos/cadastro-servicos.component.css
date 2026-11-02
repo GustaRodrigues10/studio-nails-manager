@@ -1,0 +1,239 @@
+/* Página de cadastro */
+.pagina-cadastro {
+  min-height: 100vh;
+  padding: 50px 6%;
+  background-color: #faf6f2;
+}
+
+/* Título */
+.cabecalho-cadastro {
+  margin-bottom: 35px;
+}
+
+.cabecalho-cadastro span {
+  color: #914d60;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.cabecalho-cadastro h1 {
+  font-family: Georgia, serif;
+  font-size: 38px;
+  font-weight: normal;
+  color: #302b2a;
+  margin: 15px 0;
+}
+
+.cabecalho-cadastro p {
+  color: #77706e;
+  font-size: 15px;
+}
+
+/* Organização da página */
+.conteudo-cadastro {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+  align-items: start;
+}
+
+/* Formulário */
+.formulario-cadastro,
+.previa-servico {
+  background-color: white;
+  border: 1px solid #eadfda;
+  border-radius: 10px;
+  padding: 30px;
+}
+
+.formulario-cadastro h2,
+.previa-servico h2 {
+  font-size: 19px;
+  margin: 0 0 25px;
+  color: #302b2a;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.campo label {
+  color: #5c5250;
+  font-size: 14px;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #eadfda;
+  border-radius: 6px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  background-color: white;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  outline: none;
+  border-color: #914d60;
+}
+
+/* Preço e duração */
+.linha-campos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Botões */
+.botoes-formulario {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.botoes-formulario button {
+  padding: 13px 22px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.botao-limpar {
+  background-color: white;
+  border: 1px solid #eadfda;
+  color: #5c5250;
+}
+
+.botao-salvar {
+  background-color: #914d60;
+  border: 1px solid #914d60;
+  color: white;
+}
+
+.botao-salvar:hover {
+  background-color: #783c4d;
+}
+
+/* Prévia do serviço */
+.previa-servico img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.previa-servico h3 {
+  font-family: Georgia, serif;
+  font-size: 24px;
+  font-weight: normal;
+  color: #302b2a;
+}
+
+.previa-servico p {
+  color: #77706e;
+  line-height: 1.6;
+}
+
+.previa-servico strong {
+  color: #914d60;
+  font-size: 22px;
+}
+
+/* Celulares e telas menores */
+@media (max-width: 900px) {
+  .conteudo-cadastro {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .linha-campos {
+    grid-template-columns: 1fr;
+  }
+
+  .pagina-cadastro {
+    padding: 25px 5%;
+  }
+}
+
+/* Lista de serviços cadastrados */
+.servicos-cadastrados {
+  margin-top: 35px;
+  padding: 30px;
+  background-color: white;
+  border: 1px solid #eadfda;
+  border-radius: 10px;
+}
+
+.servicos-cadastrados h2 {
+  font-size: 20px;
+  color: #302b2a;
+  margin: 0 0 20px;
+}
+
+.lista-cadastrados {
+  display: grid;
+  gap: 15px;
+}
+
+.servico-item {
+  padding: 20px;
+  border: 1px solid #eadfda;
+  border-radius: 8px;
+  background-color: #faf6f2;
+}
+
+.servico-item h3 {
+  margin: 0 0 10px;
+  color: #302b2a;
+}
+
+.servico-item p {
+  color: #77706e;
+  font-size: 14px;
+}
+
+.servico-item strong {
+  color: #914d60;
+}
+
+/* Botões dos serviços cadastrados */
+.acoes-servico {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.botao-editar {
+  background-color: #914d60;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.botao-editar:hover {
+  background-color: #783c4d;
+}
+
+.botao-excluir {
+  background-color: white;
+  color: #b34343;
+  border: 1px solid #b34343;
+  border-radius: 6px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.botao-excluir:hover {
+  background-color: #fbeaea;
+}

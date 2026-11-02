@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ServicosService, Servico } from '../../services/servicos.service';
 
 @Component({
   selector: 'app-home',
@@ -8,35 +9,11 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
-  servicos = [
-    {
-      id: 1,
-      nome: 'Manicure clássica',
-      descricao: 'Cuidado delicado das cutículas, hidratação e a sua cor favorita.',
-      preco: 45,
-      duracao: 45,
-      categoria: 'Mãos e unhas',
-      imagem: '/images/manicure-classica.jpg'
-    },
-    {
-      id: 2,
-      nome: 'Esmaltação em gel',
-      descricao: 'Brilho intenso e acabamento impecável por muito mais tempo.',
-      preco: 90,
-      duracao: 60,
-      categoria: 'Mãos e unhas',
-      imagem: '/images/esmaltacao-gel.jpg'
-    },
-    {
-      id: 3,
-      nome: 'Spa dos pés',
-      descricao: 'Esfoliação, hidratação e esmaltação para renovar seus passos.',
-      preco: 75,
-      duracao: 60,
-      categoria: 'Pés e bem-estar',
-      imagem: '/images/spa-pes.jpg'
-    }
-  ];
+  servicos: Servico[];
+
+constructor(private servicosService: ServicosService) {
+  this.servicos = this.servicosService.listarServicos();
+}
   categoriaSelecionada = 'Todos os serviços';
 
 get servicosFiltrados() {
