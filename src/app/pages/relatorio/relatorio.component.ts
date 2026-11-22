@@ -1,4 +1,9 @@
+
 import { Component } from '@angular/core';
+import {
+  AgendamentosService,
+  Agendamento
+} from '../../services/agendamentos.service';
 
 @Component({
   selector: 'app-relatorio',
@@ -15,70 +20,21 @@ export class Relatorio {
     { semana: '22–31 out', valor: 3820 }
   ];
 
-  agendamentos = [
-  {
-    id: 1,
-    horario: '10:00',
-    cliente: 'Beatriz Almeida',
-    servico: 'Manicure clássica',
-    profissional: 'Ana Oliveira',
-    valor: 45,
-    status: 'Confirmado'
-  },
-  {
-    id: 2,
-    horario: '11:00',
-    cliente: 'Camila Santos',
-    servico: 'Esmaltação em gel',
-    profissional: 'Clara Lima',
-    valor: 90,
-    status: 'Concluído'
-  },
-  {
-    id: 3,
-    horario: '13:30',
-    cliente: 'Juliana Ribeiro',
-    servico: 'Spa dos pés',
-    profissional: 'Ana Oliveira',
-    valor: 75,
-    status: 'Confirmado'
-  },
-  {
-    id: 4,
-    horario: '14:00',
-    cliente: 'Fernanda Costa',
-    servico: 'Manicure clássica',
-    profissional: 'Clara Lima',
-    valor: 45,
-    status: 'Confirmado'
-  },
-  {
-    id: 5,
-    horario: '15:30',
-    cliente: 'Luiza Martins',
-    servico: 'Esmaltação em gel',
-    profissional: 'Clara Lima',
-    valor: 90,
-    status: 'Cancelado'
+  pesquisaCliente = '';
+  statusSelecionado = 'Todos os status';
+
+  constructor(
+    private agendamentosService: AgendamentosService
+  ) {}
+
+  get agendamentos(): Agendamento[] {
+    return this.agendamentosService.listarAgendamentos();
   }
-];
 
-pesquisaCliente = '';
-statusSelecionado = 'Todos os status';
-
-get agendamentosFiltrados() {
-  return this.agendamentos.filter(agendamento => {
-
-    const correspondeNome = agendamento.cliente
-      .toLowerCase()
-      .includes(this.pesquisaCliente.toLowerCase().trim());
-
-    const correspondeStatus =
-      this.statusSelecionado === 'Todos os status' ||
-      agendamento.status === this.statusSelecionado;
-
-    return correspondeNome && correspondeStatus;
-  });
-}
-
+  get agendamentosFiltrados(): Agendamento[] {
+    return this.agendamentosService.pesquisarAgendamentos(
+      this.pesquisaCliente,
+      this.statusSelecionado
+    );
+  }
 }
