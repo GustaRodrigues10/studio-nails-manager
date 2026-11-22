@@ -237,3 +237,29 @@
 .botao-excluir:hover {
   background-color: #fbeaea;
 }
+
+/* Mensagens de validação dos formulários reativos */
+.mensagem-erro {
+  display: block;
+  color: #c62828;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+/* Destaque dos campos inválidos */
+.campo input[aria-invalid='true'],
+.campo select[aria-invalid='true'],
+.campo textarea[aria-invalid='true'] {
+  border: 1px solid #c62828;
+  background-color: #fff8f8;
+}
+
+/* Destaque ao selecionar um campo inválido */
+.campo input[aria-invalid='true']:focus,
+.campo select[aria-invalid='true']:focus,
+.campo textarea[aria-invalid='true']:focus {
+  outline: 2px solid rgba(198, 40, 40, 0.2);
+  outline-offset: 1px;
+}
