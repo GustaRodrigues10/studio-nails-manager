@@ -62,8 +62,12 @@
     </button>
   </div>
 
-  <div class="lista-servicos">
-    <div class="cartao-servico" *ngFor="let servico of servicosFiltrados">
+  <p *ngIf="erroCarregamento" class="mensagem-erro">
+  {{ erroCarregamento }}
+</p>
+
+<div class="lista-servicos">
+  <div class="cartao-servico" *ngFor="let servico of servicosFiltrados">
       <img class="imagem-servico" [src]="servico.imagem" [alt]="servico.nome" />
 
       <div class="conteudo-cartao">

@@ -1,0 +1,32 @@
+{
+  "servicos": [
+    {
+      "id": "1",
+      "nome": "Manicure clássica",
+      "categoria": "Mãos e unhas",
+      "descricao": "Cuidado delicado das cutículas, hidratação e a sua cor favorita.",
+      "preco": 55,
+      "duracao": 45,
+      "imagem": "/images/manicure-classica.jpg"
+    },
+    {
+      "id": "2",
+      "nome": "Esmaltação em gel",
+      "categoria": "Mãos e unhas",
+      "descricao": "Brilho intenso e acabamento impecável por muito mais tempo.",
+      "preco": 90,
+      "duracao": 60,
+      "imagem": "/images/esmaltacao-gel.jpg"
+    },
+    {
+      "id": "3",
+      "nome": "Spa dos pés",
+      "categoria": "Pés e bem-estar",
+      "descricao": "Esfoliação, hidratação e esmaltação para renovar seus passos.",
+      "preco": 75,
+      "duracao": 60,
+      "imagem": "/images/spa-pes.jpg"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

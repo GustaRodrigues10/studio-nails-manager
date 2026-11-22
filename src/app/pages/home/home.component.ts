@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ServicosService, Servico } from '../../services/servicos.service';
 
 @Component({
@@ -7,27 +7,42 @@ import { ServicosService, Servico } from '../../services/servicos.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
-  servicos: Servico[];
-
-constructor(private servicosService: ServicosService) {
-  this.servicos = this.servicosService.listarServicos();
-}
+  servicos: Servico[] = [];
   categoriaSelecionada = 'Todos os serviços';
+  erroCarregamento = '';
 
-get servicosFiltrados() {
-  if (this.categoriaSelecionada === 'Todos os serviços') {
-    return this.servicos;
+  constructor(private servicosService: ServicosService) {}
+
+  ngOnInit(): void {
+    this.carregarServicos();
   }
 
-  return this.servicos.filter(servico =>
-    servico.categoria === this.categoriaSelecionada
-  );
-}
+  carregarServicos(): void {
+    this.servicosService.buscarServicosApi().subscribe({
+      next: (dados) => {
+        this.servicos = dados;
+        this.erroCarregamento = '';
+      },
+      error: (erro) => {
+        console.error('Erro ao buscar serviços:', erro);
+        this.erroCarregamento = 'Não foi possível carregar os serviços.';
+      }
+    });
+  }
 
-selecionarCategoria(categoria: string) {
-  this.categoriaSelecionada = categoria;
-}
+  get servicosFiltrados(): Servico[] {
+    if (this.categoriaSelecionada === 'Todos os serviços') {
+      return this.servicos;
+    }
 
+    return this.servicos.filter(servico =>
+      servico.categoria === this.categoriaSelecionada
+    );
+  }
+
+  selecionarCategoria(categoria: string): void {
+    this.categoriaSelecionada = categoria;
+  }
 }
