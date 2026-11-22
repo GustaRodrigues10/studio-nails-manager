@@ -7,15 +7,12 @@ import { App } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { Relatorio } from './pages/relatorio/relatorio.component';
 import { CadastroServicos } from './pages/cadastro-servicos/cadastro-servicos.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [App, HomeComponent, Relatorio, CadastroServicos],
-  imports: [BrowserModule, AppRoutingModule, FormsModule],
-  providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideHttpClient()
-  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
+  providers: [provideBrowserGlobalErrorListeners(), provideHttpClient()],
   bootstrap: [App],
 })
 export class AppModule {}
