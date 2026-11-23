@@ -1,0 +1,24 @@
+<header class="cabecalho-site">
+  <div class="container">
+    <a routerLink="/home" aria-label="Página inicial">
+      <app-logo></app-logo>
+    </a>
+
+    <nav class="menu-site">
+      <a routerLink="/home" [class.ativo]="paginaAtiva === 'menu'">Menu</a>
+      <a routerLink="/home" fragment="servicos" [class.ativo]="paginaAtiva === 'servicos'">Serviços</a>
+      <a routerLink="/sobre" [class.ativo]="paginaAtiva === 'sobre'">Sobre nós</a>
+    </nav>
+
+    <div class="acoes-site">
+      <a *ngIf="!clientesService.clienteLogado" routerLink="/login" class="entrar">Entrar</a>
+
+      <span *ngIf="clientesService.clienteLogado">
+        Olá, {{ clientesService.clienteLogado.nome.split(' ')[0] }}
+        <button type="button" class="sair" (click)="sair()">(sair)</button>
+      </span>
+
+      <a routerLink="/home" fragment="servicos" class="botao botao-principal">Agendar meu momento ↗</a>
+    </div>
+  </div>
+</header>
