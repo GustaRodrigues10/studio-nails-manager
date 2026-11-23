@@ -1,0 +1,67 @@
+<app-cabecalho-site paginaAtiva="sobre"></app-cabecalho-site>
+
+<!-- APRESENTAÇÃO -->
+<main class="container apresentacao">
+  <div>
+    <span class="sobretitulo">Prazer, somos a Amélie</span>
+
+    <h1>
+      Mais que unhas.<br />
+      Um tempo só seu.
+    </h1>
+
+    <p class="texto-suave">
+      Acreditamos que se cuidar pode ser leve, sem pressa e cheio de significado. Por aqui, cada
+      encontro é um convite para desacelerar — e sair se sentindo ainda mais você.
+    </p>
+
+    <a routerLink="/home" fragment="servicos" class="botao botao-principal">Conheça nossos serviços ↗</a>
+
+    <p class="frase-assinatura">Com carinho, equipe Amélie</p>
+  </div>
+
+  <figure>
+    <img src="/images/atelie-espaco.jpg" alt="Espaço do ateliê com mesa de manicure e poltronas" />
+    <figcaption>Nosso pequeno refúgio em Pinheiros, São Paulo.</figcaption>
+  </figure>
+</main>
+
+<!-- VALORES -->
+<section class="faixa-valores">
+  <div class="container valores">
+    <div class="valor" *ngFor="let valor of valores">
+      <h3><span>{{ valor.icone }}</span> {{ valor.titulo }}</h3>
+      <p class="texto-suave">{{ valor.texto }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- HISTÓRIA -->
+<section class="container historia">
+  <img
+    class="foto-atendimento"
+    src="/images/atelie-atendimento.jpg"
+    alt="Profissional fazendo as unhas de uma cliente"
+  />
+
+  <div>
+    <span class="sobretitulo">Feito por mãos que cuidam</span>
+    <h2>Um ateliê de encontros<br />e pequenos rituais.</h2>
+    <p class="texto-suave">
+      A Amélie nasceu em 2021, do desejo de transformar o cuidado com as unhas em uma experiência
+      acolhedora. Hoje, nossa equipe une técnica, afeto e um olhar atento para cada pessoa que
+      passa por aqui.
+    </p>
+    <a routerLink="/home" fragment="servicos" class="link-seta">
+      Seu próximo momento de cuidado começa aqui. ↗
+    </a>
+  </div>
+
+  <div class="fundadora">
+    <img src="/images/fundadora-ana.jpg" alt="Ana, fundadora do ateliê" />
+    <h3>Ana, nossa fundadora</h3>
+    <p class="texto-suave">Especialista em unhas naturais</p>
+  </div>
+</section>
+
+<app-rodape-site></app-rodape-site>
