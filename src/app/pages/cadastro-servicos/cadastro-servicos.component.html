@@ -1,200 +1,229 @@
-<nav class="menu-navegacao">
-  <a routerLink="/home" routerLinkActive="ativo"> Página Inicial </a>
+<div class="layout-admin">
+  <app-menu-admin></app-menu-admin>
 
-  <a routerLink="/relatorio" routerLinkActive="ativo"> Relatório </a>
+  <div class="conteudo-admin">
+    <header class="topo-admin">
+      <span class="texto-suave">
+        Administração / Serviços e produtos / {{ idEmEdicao ? 'Editar cadastro' : 'Novo cadastro' }}
+      </span>
 
-  <a routerLink="/cadastro-servicos" routerLinkActive="ativo"> Cadastro de Serviços </a>
-</nav>
+      <div class="usuario-admin">
+        <div class="avatar-iniciais">MC</div>
+        <div>
+          <strong>Marina Costa</strong>
+          <span>Administradora</span>
+        </div>
+      </div>
+    </header>
 
-<main class="pagina-cadastro">
-  <header class="cabecalho-cadastro">
-    <span>GESTÃO DO ATELIÊ / SERVIÇOS</span>
-    <h1>Cadastro de serviços</h1>
-    <p>Cadastre e organize os serviços oferecidos pelo ateliê.</p>
-  </header>
+    <main class="pagina-admin">
+      <div class="cabecalho-pagina-admin">
+        <div>
+          <h1>{{ idEmEdicao ? 'Editar serviço' : 'Cadastro de serviço' }}</h1>
+          <p>Adicione um novo serviço ao catálogo do seu ateliê.</p>
+        </div>
 
-  <div class="conteudo-cadastro">
-    <section class="formulario-cadastro">
-      <h2>Informações do serviço</h2>
+        <span class="etiqueta">
+          {{ idEmEdicao ? 'Editando serviço' : 'Novo serviço · Rascunho' }}
+        </span>
+      </div>
 
       <form [formGroup]="formularioServico" (ngSubmit)="salvarServico()">
-        <div class="campo">
-          <label for="nome">Nome do serviço</label>
+        <div class="grade-cadastro">
+          <!-- COLUNA DA ESQUERDA: DADOS DO SERVIÇO -->
+          <div class="coluna-formulario">
+            <section class="cartao">
+              <h2>✦ Sobre o serviço</h2>
+              <p class="campo-dica">Os campos com * são obrigatórios.</p>
 
-          <input
-            id="nome"
-            type="text"
-            placeholder="Ex.: Manicure clássica"
-            formControlName="nome"
-            [attr.aria-invalid]="campoInvalido('nome')"
-          />
+              <div class="campo">
+                <label for="nome">Nome do serviço *</label>
+                <input
+                  id="nome"
+                  type="text"
+                  placeholder="Ex.: Manicure clássica"
+                  formControlName="nome"
+                  [attr.aria-invalid]="campoInvalido('nome')"
+                />
+                <small *ngIf="campoInvalido('nome')" class="mensagem-erro" role="alert">
+                  Informe um nome válido para o serviço.
+                </small>
+              </div>
 
-          <small *ngIf="campoInvalido('nome')" class="mensagem-erro" role="alert">
-            Informe um nome válido para o serviço.
-          </small>
+              <div class="campo">
+                <label for="categoria">Categoria *</label>
+                <select
+                  id="categoria"
+                  formControlName="categoria"
+                  [attr.aria-invalid]="campoInvalido('categoria')"
+                >
+                  <option value="">Selecione uma categoria</option>
+                  <option value="Mãos e unhas">Mãos e unhas</option>
+                  <option value="Pés e bem-estar">Pés e bem-estar</option>
+                </select>
+                <small *ngIf="campoInvalido('categoria')" class="mensagem-erro" role="alert">
+                  Selecione uma categoria para o serviço.
+                </small>
+              </div>
+
+              <div class="campo">
+                <label for="descricao">Descrição *</label>
+                <textarea
+                  id="descricao"
+                  rows="4"
+                  placeholder="Descreva o serviço"
+                  formControlName="descricao"
+                  [attr.aria-invalid]="campoInvalido('descricao')"
+                ></textarea>
+                <small class="campo-dica">
+                  Esta descrição aparece na página do serviço. {{ tamanhoDescricao }}/500 caracteres
+                </small>
+                <small *ngIf="campoInvalido('descricao')" class="mensagem-erro" role="alert">
+                  Informe uma descrição válida, com no máximo 500 caracteres.
+                </small>
+              </div>
+
+              <div class="linha-campos">
+                <div class="campo">
+                  <label for="preco">Valor (R$) *</label>
+                  <input
+                    id="preco"
+                    type="number"
+                    min="0.01"
+                    step="0.01"
+                    formControlName="preco"
+                    [attr.aria-invalid]="campoInvalido('preco')"
+                  />
+                  <small *ngIf="campoInvalido('preco')" class="mensagem-erro" role="alert">
+                    Informe um preço válido, maior que zero.
+                  </small>
+                </div>
+
+                <div class="campo">
+                  <label for="duracao">Duração *</label>
+                  <select
+                    id="duracao"
+                    formControlName="duracao"
+                    [attr.aria-invalid]="campoInvalido('duracao')"
+                  >
+                    <option [ngValue]="0">Selecione a duração</option>
+                    <option *ngFor="let minutos of duracoes" [ngValue]="minutos">
+                      {{ minutos }} minutos
+                    </option>
+                  </select>
+                  <small *ngIf="campoInvalido('duracao')" class="mensagem-erro" role="alert">
+                    Selecione a duração do serviço.
+                  </small>
+                </div>
+              </div>
+            </section>
+
+            <section class="cartao">
+              <h2>Profissionais e disponibilidade</h2>
+              <p class="campo-dica">Quem pode realizar este serviço?</p>
+
+              <div class="profissionais" formGroupName="profissionais">
+                <label class="checkbox">
+                  <input type="checkbox" formControlName="ana" /> Ana Oliveira
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox" formControlName="clara" /> Clara Lima
+                </label>
+              </div>
+              <small *ngIf="campoInvalido('profissionais')" class="mensagem-erro" role="alert">
+                Selecione pelo menos uma profissional.
+              </small>
+
+              <label class="disponibilidade">
+                <span>
+                  <strong>Disponível para agendamento online</strong>
+                  <small class="campo-dica">O serviço ficará visível no menu após salvar.</small>
+                </span>
+                <input type="checkbox" class="interruptor" formControlName="disponivel" />
+              </label>
+            </section>
+          </div>
+
+          <!-- COLUNA DA DIREITA: IMAGEM E PRÉVIA -->
+          <aside class="coluna-previa">
+            <section class="cartao">
+              <h2>Imagem do serviço</h2>
+              <img
+                class="imagem-previa"
+                [src]="formularioServico.get('imagem')?.value || '/images/manicure-classica.jpg'"
+                alt="Imagem do serviço"
+              />
+              <div class="campo">
+                <label for="imagem">Alterar imagem</label>
+                <select id="imagem" formControlName="imagem">
+                  <option *ngFor="let imagem of imagens" [value]="imagem.caminho">
+                    {{ imagem.nome }}
+                  </option>
+                </select>
+              </div>
+            </section>
+
+            <section class="previa-menu">
+              <span class="sobretitulo">Assim aparece no menu</span>
+              <h3>{{ formularioServico.get('nome')?.value || 'Nome do serviço' }}</h3>
+              <p class="texto-suave">
+                {{ formularioServico.get('descricao')?.value || 'Veja aqui como seu serviço aparecerá no catálogo.' }}
+              </p>
+              <div class="linha-preco">
+                <strong>{{ formularioServico.get('preco')?.value | currency: 'BRL' }}</strong>
+                <span>{{ formularioServico.get('duracao')?.value || 0 }} min</span>
+              </div>
+              <span
+                class="etiqueta"
+                [class.etiqueta-sucesso]="formularioServico.get('disponivel')?.value"
+              >
+                {{ formularioServico.get('disponivel')?.value ? 'Disponível para agendar' : 'Oculto no menu' }}
+              </span>
+            </section>
+
+            <p class="dica">ⓘ Uma boa foto e uma descrição acolhedora ajudam a cliente a escolher seu cuidado.</p>
+          </aside>
         </div>
 
-        <div class="campo">
-          <label for="categoria">Categoria</label>
-
-          <select
-            id="categoria"
-            formControlName="categoria"
-            [attr.aria-invalid]="campoInvalido('categoria')"
-            [attr.aria-describedby]="campoInvalido('categoria') ? 'erro-categoria' : null"
-          >
-            <option value="">Selecione uma categoria</option>
-            <option value="Mãos e unhas">Mãos e unhas</option>
-            <option value="Pés e bem-estar">Pés e bem-estar</option>
-          </select>
-
-          <small
-            id="erro-categoria"
-            *ngIf="campoInvalido('categoria')"
-            class="mensagem-erro"
-            role="alert"
-          >
-            Selecione uma categoria para o serviço.
-          </small>
-        </div>
-
-        <div class="campo">
-          <label for="descricao">Descrição</label>
-
-          <textarea
-            id="descricao"
-            rows="4"
-            placeholder="Descreva o serviço"
-            formControlName="descricao"
-            [attr.aria-invalid]="campoInvalido('descricao')"
-            [attr.aria-describedby]="campoInvalido('descricao') ? 'erro-descricao' : null"
-          ></textarea>
-
-          <small
-            id="erro-descricao"
-            *ngIf="campoInvalido('descricao')"
-            class="mensagem-erro"
-            role="alert"
-          >
-            Informe uma descrição válida para o serviço.
-          </small>
-        </div>
-
-        <div class="campo">
-          <label for="preco">Preço (R$)</label>
-
-          <input
-            id="preco"
-            type="number"
-            min="0.01"
-            step="0.01"
-            formControlName="preco"
-            [attr.aria-invalid]="campoInvalido('preco')"
-            [attr.aria-describedby]="campoInvalido('preco') ? 'erro-preco' : null"
-          />
-
-          <small id="erro-preco" *ngIf="campoInvalido('preco')" class="mensagem-erro" role="alert">
-            Informe um preço válido, maior que zero.
-          </small>
-        </div>
-
-        <div class="campo">
-          <label for="duracao">Duração (minutos)</label>
-
-          <input
-            id="duracao"
-            type="number"
-            min="1"
-            step="1"
-            formControlName="duracao"
-            [attr.aria-invalid]="campoInvalido('duracao')"
-            [attr.aria-describedby]="campoInvalido('duracao') ? 'erro-duracao' : null"
-          />
-
-          <small
-            id="erro-duracao"
-            *ngIf="campoInvalido('duracao')"
-            class="mensagem-erro"
-            role="alert"
-          >
-            Informe uma duração válida em minutos inteiros, maior que zero.
-          </small>
-        </div>
-
-        <div class="campo">
-          <label for="imagem">Imagem do serviço</label>
-          <input
-            id="imagem"
-            type="text"
-            placeholder="/images/manicure-classica.jpg"
-            formControlName="imagem"
-          />
-        </div>
-
-        <div class="botoes-formulario">
-          <button type="button" class="botao-limpar" (click)="limparFormulario()">Limpar</button>
-
-          <button type="submit" class="botao-salvar">Salvar serviço</button>
+        <div class="barra-acoes">
+          <span class="texto-suave">Revise as informações antes de publicar no catálogo.</span>
+          <div>
+            <button type="button" class="botao botao-contorno" (click)="limparFormulario()">
+              Cancelar
+            </button>
+            <button type="submit" class="botao botao-principal" [disabled]="salvando">
+              {{ salvando ? 'Salvando...' : 'Salvar serviço ✓' }}
+            </button>
+          </div>
         </div>
       </form>
-    </section>
 
-    <aside class="previa-servico">
-      <h2>Prévia do serviço</h2>
+      <!-- LISTA DE SERVIÇOS CADASTRADOS (GET, edição e exclusão) -->
+      <section class="cartao servicos-cadastrados">
+        <h2>Serviços cadastrados</h2>
 
-      <img
-        [src]="formularioServico.get('imagem')?.value || '/images/manicure-classica.jpg'"
-        alt="Imagem do serviço"
-      />
+        <p *ngIf="servicos.length === 0" class="texto-suave">Nenhum serviço cadastrado ainda.</p>
 
-      <h3>
-        {{ formularioServico.get('nome')?.value || 'Nome do serviço' }}
-      </h3>
+        <div class="servico-item" *ngFor="let servico of servicos">
+          <img [src]="servico.imagem" [alt]="servico.nome" />
 
-      <p>
-        {{
-          formularioServico.get('descricao')?.value ||
-            'Veja aqui como seu serviço aparecerá no catálogo.'
-        }}
-      </p>
-
-      <strong>
-        {{ formularioServico.get('preco')?.value | currency: 'BRL' }}
-      </strong>
-
-      <p>{{ formularioServico.get('duracao')?.value || 0 }} minutos</p>
-    </aside>
-  </div>
-
-  <section class="servicos-cadastrados">
-    <h2>Serviços cadastrados</h2>
-
-    <p *ngIf="servicos.length === 0">Nenhum serviço cadastrado ainda.</p>
-
-    <div class="lista-cadastrados">
-      <div class="servico-item" *ngFor="let servico of servicos">
-        <div>
-          <h3>{{ servico.nome }}</h3>
-
-          <p>{{ servico.categoria }}</p>
-
-          <p>{{ servico.descricao }}</p>
-
-          <strong>{{ servico.preco | currency: 'BRL' }}</strong>
-
-          <span> — {{ servico.duracao }} minutos</span>
+          <div class="dados-servico">
+            <h3>{{ servico.nome }}</h3>
+            <p class="texto-suave">{{ servico.categoria }} · {{ servico.duracao }} minutos</p>
+            <strong>{{ servico.preco | currency: 'BRL' }}</strong>
+            <span *ngIf="servico.disponivel === false" class="etiqueta">Oculto no menu</span>
+          </div>
 
           <div class="acoes-servico">
-            <button type="button" class="botao-editar" (click)="editarServico(servico)">
+            <button type="button" class="botao botao-contorno" (click)="editarServico(servico)">
               Editar
             </button>
-
-            <button type="button" class="botao-excluir" (click)="excluirServico(servico.id)">
+            <button type="button" class="botao botao-excluir" (click)="excluirServico(servico.id)">
               Excluir
             </button>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-</main>
+      </section>
+    </main>
+  </div>
+</div>

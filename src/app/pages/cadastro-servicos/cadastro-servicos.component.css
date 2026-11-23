@@ -1,265 +1,195 @@
-/* Página de cadastro */
-.pagina-cadastro {
-  min-height: 100vh;
-  padding: 50px 6%;
-  background-color: #faf6f2;
-}
-
-/* Título */
-.cabecalho-cadastro {
-  margin-bottom: 35px;
-}
-
-.cabecalho-cadastro span {
-  color: #914d60;
-  font-size: 12px;
-  letter-spacing: 2px;
-}
-
-.cabecalho-cadastro h1 {
-  font-family: Georgia, serif;
-  font-size: 38px;
-  font-weight: normal;
-  color: #302b2a;
-  margin: 15px 0;
-}
-
-.cabecalho-cadastro p {
-  color: #77706e;
-  font-size: 15px;
-}
-
-/* Organização da página */
-.conteudo-cadastro {
+.grade-cadastro {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 30px;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 20px;
   align-items: start;
 }
 
-/* Formulário */
-.formulario-cadastro,
-.previa-servico {
-  background-color: white;
-  border: 1px solid #eadfda;
-  border-radius: 10px;
-  padding: 30px;
-}
-
-.formulario-cadastro h2,
-.previa-servico h2 {
-  font-size: 19px;
-  margin: 0 0 25px;
-  color: #302b2a;
-}
-
-.campo {
+.coluna-formulario,
+.coluna-previa {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-
-.campo label {
-  color: #5c5250;
-  font-size: 14px;
-}
-
-.campo input,
-.campo select,
-.campo textarea {
-  width: 100%;
-  padding: 13px;
-  border: 1px solid #eadfda;
-  border-radius: 6px;
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-  background-color: white;
-}
-
-.campo input:focus,
-.campo select:focus,
-.campo textarea:focus {
-  outline: none;
-  border-color: #914d60;
-}
-
-/* Preço e duração */
-.linha-campos {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
 
-/* Botões */
-.botoes-formulario {
-  display: flex;
-  justify-content: flex-end;
-  gap: 15px;
-  margin-top: 25px;
+.cartao h2 {
+  margin-bottom: 4px;
 }
 
-.botoes-formulario button {
-  padding: 13px 22px;
-  border-radius: 6px;
-  font-size: 14px;
+.cartao > .campo-dica {
+  display: block;
+  margin: 0 0 16px;
+}
+
+.profissionais {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 8px;
+}
+
+.disponibilidade {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--cor-borda);
+  font-size: 13px;
   cursor: pointer;
 }
 
-.botao-limpar {
-  background-color: white;
-  border: 1px solid #eadfda;
-  color: #5c5250;
+.disponibilidade small {
+  display: block;
 }
 
-.botao-salvar {
-  background-color: #914d60;
-  border: 1px solid #914d60;
-  color: white;
+/* Checkbox com aparência de interruptor */
+.interruptor {
+  appearance: none;
+  width: 40px;
+  height: 22px;
+  border-radius: 999px;
+  background-color: var(--cor-borda);
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: 0.2s;
 }
 
-.botao-salvar:hover {
-  background-color: #783c4d;
+.interruptor::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--cor-branco);
+  transition: 0.2s;
 }
 
-/* Prévia do serviço */
-.previa-servico img {
+.interruptor:checked {
+  background-color: var(--cor-principal);
+}
+
+.interruptor:checked::after {
+  left: 21px;
+}
+
+.imagem-previa {
   width: 100%;
-  height: 220px;
+  height: 170px;
   object-fit: cover;
   border-radius: 8px;
+  margin: 14px 0;
 }
 
-.previa-servico h3 {
-  font-family: Georgia, serif;
-  font-size: 24px;
-  font-weight: normal;
-  color: #302b2a;
+.previa-menu {
+  background-color: var(--cor-fundo-areia);
+  border-radius: 12px;
+  padding: 22px;
 }
 
-.previa-servico p {
-  color: #77706e;
-  line-height: 1.6;
+.previa-menu h3 {
+  font-size: 28px;
 }
 
-.previa-servico strong {
-  color: #914d60;
-  font-size: 22px;
+.previa-menu p {
+  font-size: 13px;
 }
 
-/* Celulares e telas menores */
-@media (max-width: 900px) {
-  .conteudo-cadastro {
-    grid-template-columns: 1fr;
-  }
+.linha-preco {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
 }
 
-@media (max-width: 500px) {
-  .linha-campos {
-    grid-template-columns: 1fr;
-  }
-
-  .pagina-cadastro {
-    padding: 25px 5%;
-  }
+.linha-preco span {
+  font-size: 12px;
+  color: var(--cor-texto-suave);
 }
 
-/* Lista de serviços cadastrados */
-.servicos-cadastrados {
-  margin-top: 35px;
-  padding: 30px;
-  background-color: white;
-  border: 1px solid #eadfda;
-  border-radius: 10px;
+.dica {
+  font-size: 12px;
+  color: var(--cor-texto-suave);
+  margin: 0;
 }
 
+.barra-acoes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 24px 0 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--cor-borda);
+  font-size: 12px;
+}
+
+.barra-acoes div {
+  display: flex;
+  gap: 12px;
+}
+
+/* LISTA DE SERVIÇOS */
 .servicos-cadastrados h2 {
-  font-size: 20px;
-  color: #302b2a;
-  margin: 0 0 20px;
-}
-
-.lista-cadastrados {
-  display: grid;
-  gap: 15px;
+  margin-bottom: 12px;
 }
 
 .servico-item {
-  padding: 20px;
-  border: 1px solid #eadfda;
-  border-radius: 8px;
-  background-color: #faf6f2;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  border-top: 1px solid var(--cor-borda);
 }
 
-.servico-item h3 {
-  margin: 0 0 10px;
-  color: #302b2a;
+.servico-item img {
+  width: 72px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 6px;
 }
 
-.servico-item p {
-  color: #77706e;
-  font-size: 14px;
+.dados-servico {
+  flex: 1;
 }
 
-.servico-item strong {
-  color: #914d60;
+.dados-servico h3 {
+  font-family: var(--fonte-titulo);
+  font-size: 22px;
+  font-weight: 500;
 }
 
-/* Botões dos serviços cadastrados */
+.dados-servico p {
+  margin: 2px 0;
+  font-size: 12px;
+}
+
+.dados-servico strong {
+  color: var(--cor-principal);
+  margin-right: 10px;
+}
+
 .acoes-servico {
   display: flex;
-  gap: 10px;
-  margin-top: 20px;
+  gap: 8px;
 }
 
-.botao-editar {
-  background-color: #914d60;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 10px 20px;
-  cursor: pointer;
-}
-
-.botao-editar:hover {
-  background-color: #783c4d;
+.acoes-servico .botao {
+  padding: 8px 14px;
+  font-size: 13px;
 }
 
 .botao-excluir {
-  background-color: white;
-  color: #b34343;
-  border: 1px solid #b34343;
-  border-radius: 6px;
-  padding: 10px 20px;
-  cursor: pointer;
+  background-color: var(--cor-erro-fundo);
+  color: var(--cor-erro);
 }
 
-.botao-excluir:hover {
-  background-color: #fbeaea;
-}
-
-/* Mensagens de validação dos formulários reativos */
-.mensagem-erro {
-  display: block;
-  color: #c62828;
-  font-size: 0.8rem;
-  font-weight: 500;
-  margin-top: 6px;
-  line-height: 1.4;
-}
-
-/* Destaque dos campos inválidos */
-.campo input[aria-invalid='true'],
-.campo select[aria-invalid='true'],
-.campo textarea[aria-invalid='true'] {
-  border: 1px solid #c62828;
-  background-color: #fff8f8;
-}
-
-/* Destaque ao selecionar um campo inválido */
-.campo input[aria-invalid='true']:focus,
-.campo select[aria-invalid='true']:focus,
-.campo textarea[aria-invalid='true']:focus {
-  outline: 2px solid rgba(198, 40, 40, 0.2);
-  outline-offset: 1px;
+@media (max-width: 1000px) {
+  .grade-cadastro {
+    grid-template-columns: 1fr;
+  }
 }
