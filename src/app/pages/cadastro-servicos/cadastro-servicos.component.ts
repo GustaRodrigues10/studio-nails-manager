@@ -1,6 +1,18 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { Servico, ServicosService } from '../../services/servicos.service';
+
+// Validador do grupo de profissionais: pelo menos uma precisa estar marcada
+function peloMenosUmaProfissional(grupo: AbstractControl): ValidationErrors | null {
+  const valor = grupo.value;
+  return valor.ana || valor.clara ? null : { nenhumaProfissional: true };
+}
 
 @Component({
   selector: 'app-cadastro-servicos',
@@ -14,6 +26,15 @@ export class CadastroServicos implements OnInit {
   idEmEdicao: string | null = null;
   salvando = false;
 
+  // Opções exibidas nos campos de seleção
+  duracoes = [30, 45, 60, 75, 90, 120];
+  imagens = [
+    { caminho: '/images/manicure-classica.jpg', nome: 'Manicure clássica' },
+    { caminho: '/images/esmaltacao-gel.jpg', nome: 'Esmaltação em gel' },
+    { caminho: '/images/spa-pes.jpg', nome: 'Spa dos pés' },
+    { caminho: '/images/manicure-image.jpg', nome: 'Mãos (destaque)' },
+  ];
+
   constructor(
     private servicosService: ServicosService,
     private cdr: ChangeDetectorRef,
@@ -22,10 +43,21 @@ export class CadastroServicos implements OnInit {
     this.formularioServico = this.fb.group({
       nome: ['', [Validators.required, Validators.pattern(/.*\S.*/)]],
       categoria: ['', Validators.required],
-      descricao: ['', [Validators.required, Validators.pattern(/.*\S.*/)]],
+      descricao: [
+        '',
+        [Validators.required, Validators.pattern(/.*\S.*/), Validators.maxLength(500)],
+      ],
       preco: [0, [Validators.required, Validators.min(0.01)]],
       duracao: [0, [Validators.required, Validators.min(1), Validators.pattern(/^\d+$/)]],
-      imagem: [''],
+      imagem: ['/images/manicure-classica.jpg'],
+      profissionais: this.fb.group(
+        {
+          ana: [true],
+          clara: [true],
+        },
+        { validators: peloMenosUmaProfissional },
+      ),
+      disponivel: [true],
     });
   }
 
@@ -62,6 +94,15 @@ export class CadastroServicos implements OnInit {
 
     const valores = this.formularioServico.getRawValue();
 
+    // Converte as caixas marcadas em uma lista de nomes
+    const profissionais: string[] = [];
+    if (valores.profissionais.ana) {
+      profissionais.push('Ana Oliveira');
+    }
+    if (valores.profissionais.clara) {
+      profissionais.push('Clara Lima');
+    }
+
     const dadosServico = {
       nome: String(valores.nome).trim(),
       categoria: String(valores.categoria),
@@ -69,6 +110,8 @@ export class CadastroServicos implements OnInit {
       preco: Number(valores.preco),
       duracao: Number(valores.duracao),
       imagem: String(valores.imagem || '').trim() || '/images/manicure-classica.jpg',
+      profissionais: profissionais,
+      disponivel: Boolean(valores.disponivel),
     };
 
     this.salvando = true;
@@ -117,6 +160,9 @@ export class CadastroServicos implements OnInit {
   editarServico(servico: Servico): void {
     this.idEmEdicao = servico.id;
 
+    // Serviços antigos sem a lista de profissionais ficam com as duas marcadas
+    const lista = servico.profissionais ?? ['Ana Oliveira', 'Clara Lima'];
+
     this.formularioServico.patchValue({
       nome: servico.nome,
       categoria: servico.categoria,
@@ -124,10 +170,16 @@ export class CadastroServicos implements OnInit {
       preco: servico.preco,
       duracao: servico.duracao,
       imagem: servico.imagem,
+      profissionais: {
+        ana: lista.includes('Ana Oliveira'),
+        clara: lista.includes('Clara Lima'),
+      },
+      disponivel: servico.disponivel !== false,
     });
 
     this.formularioServico.markAsPristine();
     this.formularioServico.markAsUntouched();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     this.cdr.detectChanges();
   }
 
@@ -168,7 +220,9 @@ export class CadastroServicos implements OnInit {
       descricao: '',
       preco: 0,
       duracao: 0,
-      imagem: '',
+      imagem: '/images/manicure-classica.jpg',
+      profissionais: { ana: true, clara: true },
+      disponivel: true,
     });
 
     this.cdr.detectChanges();
@@ -179,5 +233,10 @@ export class CadastroServicos implements OnInit {
     const campo = this.formularioServico.get(nomeCampo);
 
     return !!campo && campo.invalid && (campo.touched || campo.dirty);
+  }
+
+  // Quantidade de caracteres digitados na descrição
+  get tamanhoDescricao(): number {
+    return (this.formularioServico.get('descricao')?.value || '').length;
   }
 }
