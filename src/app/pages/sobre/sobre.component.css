@@ -1,0 +1,117 @@
+.apresentacao {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 48px;
+  align-items: center;
+  padding: 48px 0;
+}
+
+.apresentacao h1 {
+  font-size: 54px;
+  margin-bottom: 20px;
+}
+
+.apresentacao p {
+  max-width: 400px;
+  margin-bottom: 24px;
+}
+
+.apresentacao .frase-assinatura {
+  margin-top: 28px;
+  font-size: 22px;
+}
+
+figure {
+  margin: 0;
+}
+
+figure img {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+  border-radius: 90px;
+}
+
+figcaption {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cor-texto-suave);
+  margin-top: 12px;
+}
+
+.faixa-valores {
+  background-color: var(--cor-fundo-areia);
+  padding: 28px 0;
+}
+
+.valores {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.valor h3 {
+  font-size: 22px;
+}
+
+.valor h3 span {
+  color: var(--cor-principal);
+  font-family: var(--fonte-texto);
+  font-size: 16px;
+  margin-right: 6px;
+}
+
+.valor p {
+  font-size: 13px;
+  margin: 8px 0 0 28px;
+}
+
+.historia {
+  display: grid;
+  grid-template-columns: 1.1fr 1.2fr 0.8fr;
+  gap: 40px;
+  align-items: center;
+  padding: 48px 0;
+}
+
+.foto-atendimento {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.historia h2 {
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.historia p {
+  font-size: 13px;
+}
+
+.fundadora img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 70px;
+  margin-bottom: 14px;
+}
+
+.fundadora h3 {
+  font-size: 22px;
+}
+
+.fundadora p {
+  font-size: 12px;
+  margin: 4px 0 0;
+}
+
+@media (max-width: 900px) {
+  .apresentacao,
+  .valores,
+  .historia {
+    grid-template-columns: 1fr;
+  }
+}

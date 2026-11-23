@@ -1,46 +1,58 @@
-<nav class="menu-navegacao">
-  <a routerLink="/home" routerLinkActive="ativo">
-    Página Inicial
-  </a>
+<app-cabecalho-site paginaAtiva="menu"></app-cabecalho-site>
 
-  <a routerLink="/relatorio" routerLinkActive="ativo">
-    Relatório
-  </a>
-
-  <a routerLink="/cadastro-servicos" routerLinkActive="ativo">
-    Cadastro de Serviços
-  </a>
-</nav>
-
-<main id="inicio" class="principal">
+<!-- DESTAQUE PRINCIPAL -->
+<main id="inicio" class="container destaque">
   <div class="texto-principal">
-    <span class="subtitulo"> SEU MOMENTO DE CUIDADO, EM PINHEIROS </span>
+    <span class="sobretitulo">Seu momento de cuidado, em Pinheiros</span>
 
-    <h2>
+    <h1>
       Pequenos rituais.<br />
       Um novo jeito<br />
       de se sentir.
-    </h2>
+    </h1>
 
-    <p>
+    <p class="texto-suave">
       Unhas bem cuidadas, uma conversa leve e tempo para você. Encontre seu cuidado favorito e
       agende seu momento na Amélie.
     </p>
 
-    <a href="#servicos" class="botao-cuidado"> Escolher meu cuidado </a>
+    <div class="acoes-destaque">
+      <a routerLink="/home" fragment="servicos" class="botao botao-principal">Escolher meu cuidado ↗</a>
+      <a routerLink="/sobre" class="link-seta">Conheça o ateliê</a>
+    </div>
   </div>
 
   <div class="imagem-principal">
     <img src="/images/manicure-image.jpg" alt="Mãos com unhas cuidadas" />
+
+    <div class="selo-imagem">
+      <strong>Beleza sem pressa.</strong>
+      <span>Cuidado que vai além das unhas.</span>
+    </div>
   </div>
 </main>
-<section id="servicos" class="secao-servicos">
-  <span class="subtitulo">ESCOLHA SEU RITUAL</span>
 
-  <h2>Um cuidado para cada momento.</h2>
+<!-- FAIXA DE DIFERENCIAIS -->
+<section class="faixa-diferenciais">
+  <div class="container">
+    <span>♡ Higiene e cuidado em cada etapa</span>
+    <span>♡ Atendimento com delicadeza</span>
+    <span>♡ Agendamento simples e online</span>
+  </div>
+</section>
+
+<!-- CATÁLOGO DE SERVIÇOS -->
+<section id="servicos" class="container secao-servicos">
+  <span class="sobretitulo">Escolha seu ritual</span>
+
+  <div class="titulo-servicos">
+    <h2>Um cuidado para cada momento.</h2>
+    <p class="texto-suave">Escolha o serviço. O próximo passo é seu horário.</p>
+  </div>
 
   <div class="filtros">
     <button
+      type="button"
       (click)="selecionarCategoria('Todos os serviços')"
       [class.ativo]="categoriaSelecionada === 'Todos os serviços'"
     >
@@ -48,6 +60,7 @@
     </button>
 
     <button
+      type="button"
       (click)="selecionarCategoria('Mãos e unhas')"
       [class.ativo]="categoriaSelecionada === 'Mãos e unhas'"
     >
@@ -55,6 +68,7 @@
     </button>
 
     <button
+      type="button"
       (click)="selecionarCategoria('Pés e bem-estar')"
       [class.ativo]="categoriaSelecionada === 'Pés e bem-estar'"
     >
@@ -62,26 +76,60 @@
     </button>
   </div>
 
-  <p *ngIf="erroCarregamento" class="mensagem-erro">
-  {{ erroCarregamento }}
-</p>
+  <p *ngIf="erroCarregamento" class="alerta alerta-erro">
+    {{ erroCarregamento }}
+  </p>
 
-<div class="lista-servicos">
-  <div class="cartao-servico" *ngFor="let servico of servicosFiltrados">
+  <div class="lista-servicos">
+    <article class="cartao-servico" *ngFor="let servico of servicosFiltrados">
       <img class="imagem-servico" [src]="servico.imagem" [alt]="servico.nome" />
 
       <div class="conteudo-cartao">
+        <span class="sobretitulo">{{ servico.categoria }}</span>
+
         <h3>{{ servico.nome }}</h3>
 
-        <p>{{ servico.descricao }}</p>
+        <p class="texto-suave">{{ servico.descricao }}</p>
 
         <div class="informacoes-servico">
           <strong>{{ servico.preco | currency: 'BRL' }}</strong>
-          <span>{{ servico.duracao }} min</span>
+          <span>◷ {{ servico.duracao }} min</span>
         </div>
 
-        <a href="#servicos">Conhecer e agendar</a>
+        <a [routerLink]="['/servicos', servico.id]" class="link-agendar">
+          Conhecer e agendar <span>↗</span>
+        </a>
       </div>
+    </article>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="faixa-passos">
+  <div class="container passos">
+    <div>
+      <span class="sobretitulo">Leve do início ao fim</span>
+      <h2>Seu próximo cuidado,<br />a poucos cliques.</h2>
+    </div>
+
+    <div class="passo">
+      <span class="numero">01</span>
+      <strong>Escolha seu serviço</strong>
+      <p>Encontre o ritual que combina com você.</p>
+    </div>
+
+    <div class="passo">
+      <span class="numero">02</span>
+      <strong>Encontre seu horário</strong>
+      <p>Escolha o dia e sua profissional favorita.</p>
+    </div>
+
+    <div class="passo">
+      <span class="numero">03</span>
+      <strong>Pronto, é só chegar</strong>
+      <p>Confirme sua reserva e deixe o resto com a gente.</p>
     </div>
   </div>
 </section>
+
+<app-rodape-site></app-rodape-site>

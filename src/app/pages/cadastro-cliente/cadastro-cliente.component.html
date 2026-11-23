@@ -1,0 +1,157 @@
+<div class="tela-acesso">
+  <!-- LATERAL COM FOTO -->
+  <aside class="lateral-acesso">
+    <a routerLink="/home" style="text-decoration: none"><app-logo></app-logo></a>
+
+    <div>
+      <span class="sobretitulo">Um respiro no seu dia</span>
+      <h2>Todo cuidado começa<br />com um encontro.</h2>
+      <p>Um espaço para desacelerar, se cuidar e celebrar a beleza dos pequenos detalhes.</p>
+      <p class="local">⌖ Seu refúgio em Pinheiros · São Paulo</p>
+    </div>
+  </aside>
+
+  <!-- FORMULÁRIO -->
+  <div class="area-formulario-acesso">
+    <div class="topo-acesso">
+      <a routerLink="/home" class="voltar">← Voltar ao menu</a>
+      <a routerLink="/login">Já tem uma conta? Entre</a>
+    </div>
+
+    <!-- Confirmação após cadastro com reserva pendente -->
+    <div *ngIf="agendamentoConfirmado && reservaConfirmada" class="formulario-acesso">
+      <div class="confirmacao-reserva">
+        <div class="icone-ok">✓</div>
+        <h2>Conta criada e agendamento confirmado!</h2>
+        <p class="texto-suave">Te esperamos no ateliê.</p>
+        <div class="resumo">
+          <strong>{{ reservaConfirmada.servico }}</strong><br />
+          {{ reservaConfirmada.profissional }} · {{ reservaConfirmada.dataTexto }}<br />
+          às {{ reservaConfirmada.horario }} · {{ reservaConfirmada.valor | currency: 'BRL' }}
+        </div>
+        <a routerLink="/home" class="botao botao-principal">Voltar ao início</a>
+      </div>
+    </div>
+
+    <form
+      *ngIf="!agendamentoConfirmado"
+      class="formulario-acesso"
+      [formGroup]="formularioCadastro"
+      (ngSubmit)="criarConta()"
+    >
+      <span class="sobretitulo">Seu primeiro momento Amélie</span>
+      <h1>Vamos nos conhecer?</h1>
+      <p class="introducao">
+        Crie sua conta para agendar seus cuidados e acompanhar seus próximos encontros com a gente.
+      </p>
+
+      <p *ngIf="mensagemErro" class="alerta alerta-erro" role="alert">{{ mensagemErro }}</p>
+
+      <div class="campo">
+        <label for="nome">Nome completo *</label>
+        <input
+          id="nome"
+          type="text"
+          placeholder="Como você gostaria de ser chamada?"
+          formControlName="nome"
+          [attr.aria-invalid]="campoInvalido('nome')"
+        />
+        <small *ngIf="campoInvalido('nome')" class="mensagem-erro" role="alert">
+          Informe seu nome (mínimo de 3 letras).
+        </small>
+      </div>
+
+      <div class="campo">
+        <label for="email">E-mail *</label>
+        <input
+          id="email"
+          type="email"
+          placeholder="seunome@email.com"
+          formControlName="email"
+          [attr.aria-invalid]="campoInvalido('email')"
+        />
+        <small *ngIf="campoInvalido('email')" class="mensagem-erro" role="alert">
+          Informe um e-mail válido.
+        </small>
+      </div>
+
+      <div class="campo">
+        <label for="celular">Celular com DDD *</label>
+        <input
+          id="celular"
+          type="tel"
+          placeholder="(11) 99999-9999"
+          formControlName="celular"
+          [attr.aria-invalid]="campoInvalido('celular')"
+        />
+        <small class="campo-dica">Usaremos este número para lembrar do seu horário.</small>
+        <small *ngIf="campoInvalido('celular')" class="mensagem-erro" role="alert">
+          Informe um celular válido, ex.: (11) 99999-9999.
+        </small>
+      </div>
+
+      <div class="linha-campos">
+        <div class="campo">
+          <label for="senha">Senha *</label>
+          <div class="senha-com-botao">
+            <input
+              id="senha"
+              [type]="mostrarSenha ? 'text' : 'password'"
+              placeholder="Crie sua senha"
+              formControlName="senha"
+              [attr.aria-invalid]="campoInvalido('senha')"
+            />
+            <button type="button" (click)="mostrarSenha = !mostrarSenha">
+              {{ mostrarSenha ? 'Ocultar' : 'Mostrar' }}
+            </button>
+          </div>
+        </div>
+
+        <div class="campo">
+          <label for="confirmarSenha">Confirme sua senha *</label>
+          <input
+            id="confirmarSenha"
+            [type]="mostrarSenha ? 'text' : 'password'"
+            placeholder="Repita sua senha"
+            formControlName="confirmarSenha"
+            [attr.aria-invalid]="campoInvalido('confirmarSenha') || senhasNaoConferem"
+          />
+        </div>
+      </div>
+
+      <small class="campo-dica">Use ao menos 8 caracteres, com letras e números.</small>
+      <small *ngIf="campoInvalido('senha')" class="mensagem-erro" role="alert">
+        <br />A senha precisa ter ao menos 8 caracteres, com letras e números.
+      </small>
+      <small *ngIf="campoInvalido('confirmarSenha')" class="mensagem-erro" role="alert">
+        <br />Confirme sua senha.
+      </small>
+      <small *ngIf="senhasNaoConferem" class="mensagem-erro" role="alert">
+        <br />As senhas não conferem.
+      </small>
+
+      <label class="checkbox termos">
+        <input type="checkbox" formControlName="termos" />
+        Li e aceito os Termos de uso e a Política de privacidade da Amélie.
+      </label>
+      <small *ngIf="campoInvalido('termos')" class="mensagem-erro" role="alert">
+        É preciso aceitar os termos para criar a conta.
+      </small>
+
+      <button type="submit" class="botao botao-principal botao-bloco" [disabled]="enviando">
+        {{ enviando ? 'Criando conta...' : 'Criar minha conta →' }}
+      </button>
+
+      <p class="troca-acesso">Já tem uma conta? <a routerLink="/login">Entre</a></p>
+
+      <div *ngIf="reservaService.reservaPendente as reserva" class="aviso-reserva">
+        <span>▣</span>
+        <div>
+          <strong>Seu momento está quase reservado</strong>
+          {{ reserva.servico }} · {{ reserva.profissional }} · {{ reserva.dataCurta }}, às
+          {{ reserva.horario }}
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

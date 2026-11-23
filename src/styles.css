@@ -1,10 +1,30 @@
-/* Cores principais do Ateliê Amélie */
+/* =========================================================
+   ESTILOS GLOBAIS — AMÉLIE ATELIÊ DE UNHAS
+   Aqui ficam as cores, fontes e peças reutilizadas em
+   várias páginas (botões, cabeçalho, rodapé, formulários,
+   menu administrativo e telas de login/cadastro).
+   ========================================================= */
+
+/* Cores e fontes principais (baseadas no Figma) */
 :root {
-  --cor-fundo: #faf6f2;
+  --cor-fundo: #faf7f3;
+  --cor-fundo-areia: #f4efe9;
   --cor-principal: #914d60;
-  --cor-texto: #302b2a;
-  --cor-suave: #f2e6e4;
+  --cor-principal-escura: #7a3f50;
+  --cor-texto: #2f2a28;
+  --cor-texto-suave: #6f6763;
+  --cor-suave: #f2e4e4;
+  --cor-borda: #e8dfd9;
   --cor-branco: #ffffff;
+  --cor-sucesso: #3f7a5a;
+  --cor-sucesso-fundo: #e7f1ea;
+  --cor-erro: #b3261e;
+  --cor-erro-fundo: #f8e1e1;
+
+  --fonte-titulo: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --fonte-texto: 'Inter', Arial, sans-serif;
+
+  --raio: 10px;
 }
 
 /* Configuração geral */
@@ -16,50 +36,702 @@ body {
   margin: 0;
   background-color: var(--cor-fundo);
   color: var(--cor-texto);
-  font-family: Arial, sans-serif;
+  font-family: var(--fonte-texto);
+  font-size: 15px;
+  line-height: 1.6;
 }
 
-/* MENU DE NAVEGAÇÃO */
+img {
+  max-width: 100%;
+  display: block;
+}
 
-.menu-navegacao {
-  display: flex;
-  justify-content: center;
+a {
+  color: var(--cor-principal);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--fonte-titulo);
+  font-weight: 500;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.container {
+  width: min(1180px, 100% - 48px);
+  margin: 0 auto;
+}
+
+/* Pequeno texto em maiúsculas acima dos títulos */
+.sobretitulo {
+  display: block;
+  color: var(--cor-principal);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.texto-suave {
+  color: var(--cor-texto-suave);
+}
+
+.frase-assinatura {
+  font-family: var(--fonte-titulo);
+  font-style: italic;
+  color: var(--cor-principal);
+  font-size: 24px;
+}
+
+/* ---------- BOTÕES ---------- */
+
+.botao {
+  display: inline-flex;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 30px;
-
-  background-color: #ffffff;
-  padding: 20px 30px;
-  border-bottom: 1px solid #eadfda;
-}
-
-.menu-navegacao a {
-  text-decoration: none;
-  color: #914d60;
+  justify-content: center;
+  gap: 10px;
+  padding: 13px 22px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-family: var(--fonte-texto);
   font-size: 14px;
   font-weight: 600;
-  padding: 12px 18px;
-  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
   transition: 0.2s;
 }
 
-.menu-navegacao a:hover {
-  background-color: #f2e6e4;
+.botao-principal {
+  background-color: var(--cor-principal);
+  color: var(--cor-branco);
 }
 
-.menu-navegacao a.ativo {
-  background-color: #914d60;
-  color: #ffffff;
+.botao-principal:hover {
+  background-color: var(--cor-principal-escura);
 }
 
-@media (max-width: 600px) {
-  .menu-navegacao {
-    gap: 8px;
-    padding: 12px;
+.botao-principal:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.botao-contorno {
+  background-color: var(--cor-branco);
+  border-color: var(--cor-borda);
+  color: var(--cor-texto);
+}
+
+.botao-contorno:hover {
+  border-color: var(--cor-principal);
+}
+
+.botao-bloco {
+  width: 100%;
+}
+
+.link-seta {
+  color: var(--cor-principal);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.link-seta:hover {
+  text-decoration: underline;
+}
+
+/* ---------- ETIQUETAS (status, avisos) ---------- */
+
+.etiqueta {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  background-color: var(--cor-suave);
+  color: var(--cor-principal);
+}
+
+.etiqueta-sucesso {
+  background-color: var(--cor-sucesso-fundo);
+  color: var(--cor-sucesso);
+}
+
+.etiqueta-erro {
+  background-color: var(--cor-erro-fundo);
+  color: var(--cor-erro);
+}
+
+/* ---------- LOGO ---------- */
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--cor-texto);
+}
+
+.logo svg {
+  width: 26px;
+  height: 26px;
+  color: var(--cor-principal);
+}
+
+.logo-nome {
+  display: block;
+  font-family: var(--fonte-titulo);
+  font-size: 28px;
+  line-height: 1;
+}
+
+.logo-sub {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+/* ---------- CABEÇALHO DO SITE ---------- */
+
+.cabecalho-site {
+  background-color: var(--cor-fundo);
+  border-bottom: 1px solid var(--cor-borda);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.cabecalho-site .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 72px;
+}
+
+.menu-site {
+  display: flex;
+  gap: 28px;
+}
+
+.menu-site a {
+  color: var(--cor-texto);
+  text-decoration: none;
+  font-size: 14px;
+  padding: 6px 0;
+  border-bottom: 2px solid transparent;
+}
+
+.menu-site a:hover,
+.menu-site a.ativo {
+  color: var(--cor-principal);
+  border-bottom-color: var(--cor-principal);
+  font-weight: 600;
+}
+
+.acoes-site {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  font-size: 14px;
+}
+
+.acoes-site a.entrar {
+  color: var(--cor-texto);
+  text-decoration: none;
+}
+
+.acoes-site button.sair {
+  background: none;
+  border: none;
+  color: var(--cor-principal);
+  cursor: pointer;
+  font-size: 13px;
+  padding: 0;
+}
+
+/* ---------- RODAPÉ DO SITE ---------- */
+
+.rodape-site {
+  background-color: var(--cor-fundo-areia);
+  padding: 36px 0 20px;
+  font-size: 13px;
+}
+
+.rodape-colunas {
+  display: grid;
+  grid-template-columns: 1.2fr 1.4fr 1.2fr 1.2fr;
+  gap: 24px;
+  align-items: center;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.rodape-colunas p {
+  margin: 0;
+}
+
+.rodape-colunas .frase-assinatura {
+  text-align: right;
+  font-size: 20px;
+}
+
+.rodape-final {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 16px;
+  font-size: 12px;
+  color: var(--cor-texto-suave);
+}
+
+.rodape-final a {
+  color: var(--cor-texto-suave);
+}
+
+/* ---------- FORMULÁRIOS ---------- */
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.campo label,
+.rotulo {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  background-color: var(--cor-branco);
+  font-family: var(--fonte-texto);
+  font-size: 14px;
+  color: var(--cor-texto);
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  outline: 2px solid var(--cor-suave);
+  border-color: var(--cor-principal);
+}
+
+.campo input[aria-invalid='true'],
+.campo select[aria-invalid='true'],
+.campo textarea[aria-invalid='true'] {
+  border-color: var(--cor-erro);
+}
+
+.campo-dica {
+  font-size: 12px;
+  color: var(--cor-texto-suave);
+}
+
+.mensagem-erro {
+  color: var(--cor-erro);
+  font-size: 12px;
+}
+
+.alerta {
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.alerta-erro {
+  background-color: var(--cor-erro-fundo);
+  color: var(--cor-erro);
+}
+
+.alerta-sucesso {
+  background-color: var(--cor-sucesso-fundo);
+  color: var(--cor-sucesso);
+}
+
+.linha-campos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* Campo de senha com botão de mostrar/ocultar */
+.senha-com-botao {
+  position: relative;
+}
+
+.senha-com-botao input {
+  padding-right: 70px;
+}
+
+.senha-com-botao button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--cor-texto-suave);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.checkbox input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--cor-principal);
+}
+
+.checkbox.termos {
+  margin: 18px 0 6px;
+}
+
+.formulario-acesso .botao-bloco {
+  margin-top: 16px;
+}
+
+/* ---------- TELAS DE LOGIN E CADASTRO DE CONTA ---------- */
+
+.tela-acesso {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  min-height: 100vh;
+}
+
+.lateral-acesso {
+  position: relative;
+  color: var(--cor-branco);
+  background-image:
+    linear-gradient(180deg, rgba(40, 25, 25, 0.25) 0%, rgba(70, 35, 45, 0.85) 100%),
+    url('/images/atelie-recepcao.jpg');
+  background-size: cover;
+  background-position: center;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.lateral-acesso .logo {
+  color: var(--cor-branco);
+}
+
+.lateral-acesso .logo svg {
+  color: var(--cor-branco);
+}
+
+.lateral-acesso .sobretitulo {
+  color: var(--cor-branco);
+}
+
+.lateral-acesso h2 {
+  font-size: 44px;
+  margin-bottom: 16px;
+}
+
+.lateral-acesso p {
+  max-width: 340px;
+  font-size: 14px;
+}
+
+.lateral-acesso .local {
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  padding-top: 16px;
+  font-size: 13px;
+}
+
+.area-formulario-acesso {
+  padding: 28px 56px;
+  display: flex;
+  flex-direction: column;
+}
+
+.topo-acesso {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.topo-acesso a {
+  text-decoration: none;
+}
+
+.topo-acesso a.voltar {
+  color: var(--cor-texto-suave);
+}
+
+.formulario-acesso {
+  width: min(420px, 100%);
+  margin: auto;
+  padding: 32px 0;
+}
+
+.formulario-acesso h1 {
+  font-size: 44px;
+  margin-bottom: 10px;
+}
+
+.formulario-acesso .introducao {
+  color: var(--cor-texto-suave);
+  margin: 0 0 24px;
+}
+
+.troca-acesso {
+  text-align: center;
+  font-size: 13px;
+  margin-top: 20px;
+}
+
+.troca-acesso a {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.aviso-reserva {
+  display: flex;
+  gap: 12px;
+  background-color: var(--cor-suave);
+  border-radius: var(--raio);
+  padding: 14px 18px;
+  margin-top: 24px;
+  font-size: 12px;
+}
+
+.aviso-reserva strong {
+  display: block;
+  color: var(--cor-principal);
+  font-size: 13px;
+}
+
+.confirmacao-reserva {
+  text-align: center;
+  background-color: var(--cor-branco);
+  border: 1px solid var(--cor-borda);
+  border-radius: 14px;
+  padding: 32px;
+}
+
+.confirmacao-reserva .icone-ok {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background-color: var(--cor-sucesso-fundo);
+  color: var(--cor-sucesso);
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+}
+
+.confirmacao-reserva h2 {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.confirmacao-reserva .resumo {
+  background-color: var(--cor-fundo-areia);
+  border-radius: var(--raio);
+  padding: 14px;
+  margin: 18px 0;
+  font-size: 14px;
+}
+
+/* ---------- ÁREA ADMINISTRATIVA ---------- */
+
+.layout-admin {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  min-height: 100vh;
+}
+
+.menu-lateral {
+  background-color: var(--cor-fundo-areia);
+  border-right: 1px solid var(--cor-borda);
+  padding: 24px 14px;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.menu-lateral .logo {
+  padding: 0 6px;
+  margin-bottom: 34px;
+}
+
+.titulo-menu {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--cor-texto-suave);
+  margin: 0 6px 10px;
+}
+
+.menu-lateral nav a {
+  display: block;
+  padding: 11px 14px;
+  border-radius: 8px;
+  color: var(--cor-texto);
+  text-decoration: none;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.menu-lateral nav a:hover {
+  background-color: var(--cor-borda);
+}
+
+.menu-lateral nav a.ativo {
+  background-color: var(--cor-suave);
+  color: var(--cor-principal);
+  font-weight: 600;
+}
+
+.rodape-menu {
+  margin-top: auto;
+  padding: 0 6px;
+  font-size: 13px;
+}
+
+.rodape-menu a {
+  text-decoration: none;
+}
+
+.conteudo-admin {
+  min-width: 0;
+}
+
+.topo-admin {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  border-bottom: 1px solid var(--cor-borda);
+  background-color: var(--cor-branco);
+  font-size: 13px;
+}
+
+.usuario-admin {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar-iniciais {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: var(--cor-suave);
+  color: var(--cor-principal);
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.usuario-admin span {
+  display: block;
+  font-size: 11px;
+  color: var(--cor-texto-suave);
+}
+
+.pagina-admin {
+  padding: 32px;
+}
+
+.cabecalho-pagina-admin {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.cabecalho-pagina-admin h1 {
+  font-size: 40px;
+}
+
+.cabecalho-pagina-admin p {
+  margin: 6px 0 0;
+  color: var(--cor-texto-suave);
+}
+
+.cartao {
+  background-color: var(--cor-branco);
+  border: 1px solid var(--cor-borda);
+  border-radius: 12px;
+  padding: 22px;
+}
+
+.cartao h2,
+.cartao h3 {
+  font-family: var(--fonte-texto);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Responsividade básica */
+@media (max-width: 900px) {
+  .menu-site {
+    display: none;
   }
 
-  .menu-navegacao a {
-    font-size: 12px;
-    padding: 10px;
+  .rodape-colunas {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .tela-acesso {
+    grid-template-columns: 1fr;
+  }
+
+  .lateral-acesso {
+    min-height: 260px;
+  }
+
+  .area-formulario-acesso {
+    padding: 24px;
+  }
+
+  .layout-admin {
+    grid-template-columns: 1fr;
+  }
+
+  .menu-lateral {
+    position: static;
+    height: auto;
+  }
+}
+
+/* Impressão do relatório (botão "Exportar relatório") */
+@media print {
+  .menu-lateral,
+  .topo-admin,
+  .nao-imprimir {
+    display: none !important;
+  }
+
+  .layout-admin {
+    display: block;
   }
 }

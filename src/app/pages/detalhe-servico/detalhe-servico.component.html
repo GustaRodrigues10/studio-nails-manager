@@ -1,0 +1,161 @@
+<app-cabecalho-site paginaAtiva="servicos"></app-cabecalho-site>
+
+<main class="container pagina-detalhe">
+  <p *ngIf="carregando" class="texto-suave">Carregando serviço...</p>
+
+  <div *ngIf="erroCarregamento" class="alerta alerta-erro">
+    {{ erroCarregamento }}
+    <a routerLink="/home" fragment="servicos">Voltar aos serviços</a>
+  </div>
+
+  <ng-container *ngIf="servico && !carregando">
+    <!-- TRILHA E ETAPAS -->
+    <nav class="trilha">
+      <a routerLink="/home">Menu</a> / <a routerLink="/home" fragment="servicos">{{ servico.categoria }}</a> /
+      <span>{{ servico.nome }}</span>
+    </nav>
+
+    <ol class="etapas">
+      <li class="feita">✓ Escolha seu cuidado</li>
+      <li [class.atual]="!agendamentoConfirmado" [class.feita]="agendamentoConfirmado">02 Agende seu momento</li>
+      <li [class.atual]="agendamentoConfirmado">03 Confirmação</li>
+    </ol>
+
+    <div class="grade-detalhe">
+      <!-- INFORMAÇÕES DO SERVIÇO -->
+      <section class="info-servico">
+        <img class="imagem-detalhe" [src]="servico.imagem" [alt]="servico.nome" />
+
+        <span class="sobretitulo">{{ servico.categoria }}</span>
+        <h1>{{ servico.nome }}</h1>
+
+        <div class="preco-duracao">
+          <strong>{{ servico.preco | currency: 'BRL' }}</strong>
+          <span>◷ {{ servico.duracao }} minutos</span>
+        </div>
+
+        <p class="texto-suave">{{ servico.descricao }}</p>
+
+        <h3 class="titulo-inclui">Seu cuidado inclui</h3>
+        <ul class="lista-inclui">
+          <li>Atendimento individual com profissional especializada</li>
+          <li>Materiais esterilizados e itens descartáveis</li>
+          <li>{{ servico.duracao }} minutos de cuidado só para você</li>
+        </ul>
+
+        <p class="aviso-seguranca">
+          ⛉ Seu bem-estar vem primeiro. Materiais esterilizados e itens descartáveis em todos os atendimentos.
+        </p>
+      </section>
+
+      <!-- AGENDAMENTO -->
+      <section class="cartao-agenda">
+        <!-- Confirmação (cliente já logada) -->
+        <div *ngIf="agendamentoConfirmado" class="confirmacao-reserva">
+          <div class="icone-ok">✓</div>
+          <h2>Agendamento confirmado!</h2>
+          <p class="texto-suave">Te esperamos no ateliê.</p>
+          <div class="resumo">
+            <strong>{{ agendamentoConfirmado.servico }}</strong><br />
+            {{ agendamentoConfirmado.profissional }} · {{ diaSelecionado?.texto }}<br />
+            às {{ agendamentoConfirmado.horario }}
+          </div>
+          <button type="button" class="botao botao-contorno" (click)="novoAgendamento()">
+            Fazer outro agendamento
+          </button>
+        </div>
+
+        <ng-container *ngIf="!agendamentoConfirmado">
+          <h2>Reserve um tempo para você</h2>
+          <p class="texto-suave subtitulo">Escolha quem vai cuidar de você e o melhor horário.</p>
+
+          <!-- 01 PROFISSIONAL -->
+          <h3 class="titulo-etapa">01 · Sua profissional</h3>
+          <div class="profissionais">
+            <button
+              type="button"
+              class="opcao-profissional"
+              *ngFor="let profissional of profissionais"
+              [class.selecionada]="profissional.nome === profissionalSelecionada"
+              (click)="selecionarProfissional(profissional.nome)"
+            >
+              <img [src]="profissional.foto" [alt]="profissional.nome" />
+              <span>
+                <strong>{{ profissional.nome }}</strong>
+                <small>{{ profissional.especialidade }}</small>
+              </span>
+              <span class="radio"></span>
+            </button>
+          </div>
+
+          <!-- 02 DIA -->
+          <div class="titulo-com-info">
+            <h3 class="titulo-etapa">02 · Melhor dia</h3>
+            <span class="texto-suave">{{ mesTexto }}</span>
+          </div>
+          <div class="dias">
+            <button
+              type="button"
+              *ngFor="let dia of dias"
+              [class.selecionado]="dia.iso === diaSelecionado?.iso"
+              (click)="selecionarDia(dia)"
+            >
+              <small>{{ dia.diaSemana }}</small>
+              <strong>{{ dia.dia }}</strong>
+            </button>
+          </div>
+          <p class="data-escolhida">{{ diaSelecionado?.texto }}</p>
+
+          <!-- 03 HORÁRIO -->
+          <div class="titulo-com-info">
+            <h3 class="titulo-etapa">03 · Melhor horário</h3>
+            <span class="texto-suave">Horário de Brasília</span>
+          </div>
+          <div class="horarios">
+            <button
+              type="button"
+              *ngFor="let horario of horarios"
+              [class.selecionado]="horario === horarioSelecionado"
+              [disabled]="horarioReservado(horario)"
+              (click)="selecionarHorario(horario)"
+            >
+              {{ horario }}
+            </button>
+          </div>
+          <p class="campo-dica">Os horários riscados já estão reservados.</p>
+
+          <!-- RESUMO -->
+          <div class="resumo-agenda">
+            <div class="linha-resumo">
+              <strong>{{ servico.nome }}</strong>
+              <strong class="valor">{{ servico.preco | currency: 'BRL' }}</strong>
+            </div>
+            <p>{{ profissionalSelecionada }} · {{ diaSelecionado?.texto }}</p>
+            <p *ngIf="horarioSelecionado">{{ horarioSelecionado }} às {{ horarioFim }} · Amélie, Pinheiros</p>
+            <p *ngIf="!horarioSelecionado">Escolha um horário</p>
+            <span class="etiqueta etiqueta-sucesso">Pagamento no ateliê</span>
+          </div>
+
+          <p *ngIf="mensagemErro" class="alerta alerta-erro">{{ mensagemErro }}</p>
+
+          <button
+            type="button"
+            class="botao botao-principal botao-bloco"
+            [disabled]="enviando"
+            (click)="continuarAgendamento()"
+          >
+            {{ enviando ? 'Confirmando...' : (clientesService.clienteLogado ? 'Confirmar agendamento →' : 'Continuar com agendamento →') }}
+          </button>
+
+          <p *ngIf="!clientesService.clienteLogado" class="campo-dica centro">
+            Entre ou crie sua conta na próxima etapa para confirmar sua reserva.
+          </p>
+
+          <p class="campo-dica">Mudou de planos? Cancele ou reagende com até 24 horas de antecedência.</p>
+        </ng-container>
+      </section>
+    </div>
+  </ng-container>
+</main>
+
+<app-rodape-site></app-rodape-site>

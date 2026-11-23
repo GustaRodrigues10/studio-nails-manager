@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ServicosService, Servico } from '../../services/servicos.service';
 
 @Component({
@@ -13,7 +13,10 @@ export class HomeComponent implements OnInit {
   categoriaSelecionada = 'Todos os serviços';
   erroCarregamento = '';
 
-  constructor(private servicosService: ServicosService) {}
+  constructor(
+    private servicosService: ServicosService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.carregarServicos();
@@ -24,20 +27,25 @@ export class HomeComponent implements OnInit {
       next: (dados) => {
         this.servicos = dados;
         this.erroCarregamento = '';
+        this.cdr.detectChanges();
       },
       error: (erro) => {
         console.error('Erro ao buscar serviços:', erro);
         this.erroCarregamento = 'Não foi possível carregar os serviços.';
+        this.cdr.detectChanges();
       }
     });
   }
 
   get servicosFiltrados(): Servico[] {
+    // Só aparecem no menu os serviços marcados como disponíveis
+    const disponiveis = this.servicos.filter(servico => servico.disponivel !== false);
+
     if (this.categoriaSelecionada === 'Todos os serviços') {
-      return this.servicos;
+      return disponiveis;
     }
 
-    return this.servicos.filter(servico =>
+    return disponiveis.filter(servico =>
       servico.categoria === this.categoriaSelecionada
     );
   }
@@ -45,4 +53,4 @@ export class HomeComponent implements OnInit {
   selecionarCategoria(categoria: string): void {
     this.categoriaSelecionada = categoria;
   }
-}
+}
