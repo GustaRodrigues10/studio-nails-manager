@@ -1,6 +1,11 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AgendamentosService, Agendamento } from '../../services/agendamentos.service';
 
+interface ServicoFavorito {
+  nome: string;
+  percentual: number;
+}
+
 @Component({
   selector: 'app-relatorio',
   standalone: false,
@@ -8,6 +13,7 @@ import { AgendamentosService, Agendamento } from '../../services/agendamentos.se
   templateUrl: './relatorio.component.html',
 })
 export class Relatorio implements OnInit {
+  // Valores demonstrativos do gráfico (não são calculados pela API)
   receitasSemanais = [
     { semana: '01–07 out', valor: 2480 },
     { semana: '08–14 out', valor: 2900 },
@@ -22,6 +28,10 @@ export class Relatorio implements OnInit {
 
   carregandoAgendamentos = true;
   erroAgendamentos = '';
+
+  // Paginação da tabela
+  itensPorPagina = 5;
+  paginaAtual = 1;
 
   constructor(
     private agendamentosService: AgendamentosService,
@@ -60,5 +70,67 @@ export class Relatorio implements OnInit {
       this.pesquisaCliente,
       this.statusSelecionado,
     );
+  }
+
+  // Somente os agendamentos da página atual
+  get agendamentosDaPagina(): Agendamento[] {
+    const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
+    return this.agendamentosFiltrados.slice(inicio, inicio + this.itensPorPagina);
+  }
+
+  get totalPaginas(): number {
+    return Math.max(1, Math.ceil(this.agendamentosFiltrados.length / this.itensPorPagina));
+  }
+
+  get paginas(): number[] {
+    return Array.from({ length: this.totalPaginas }, (_, i) => i + 1);
+  }
+
+  irParaPagina(pagina: number): void {
+    if (pagina >= 1 && pagina <= this.totalPaginas) {
+      this.paginaAtual = pagina;
+    }
+  }
+
+  // Ao pesquisar ou filtrar, volta para a primeira página
+  alterarPesquisa(valor: string): void {
+    this.pesquisaCliente = valor;
+    this.paginaAtual = 1;
+  }
+
+  alterarStatus(valor: string): void {
+    this.statusSelecionado = valor;
+    this.paginaAtual = 1;
+  }
+
+  // Calculado a partir dos agendamentos da API (cancelados não entram)
+  get servicosFavoritos(): ServicoFavorito[] {
+    const validos = this.agendamentos.filter((a) => a.status !== 'Cancelado');
+    const contagem: { [servico: string]: number } = {};
+
+    for (const agendamento of validos) {
+      contagem[agendamento.servico] = (contagem[agendamento.servico] || 0) + 1;
+    }
+
+    return Object.keys(contagem)
+      .map((nome) => ({
+        nome,
+        percentual: Math.round((contagem[nome] / validos.length) * 100),
+      }))
+      .sort((a, b) => b.percentual - a.percentual);
+  }
+
+  // Mostra a data no formato DD/MM (para agendamentos feitos pelo site)
+  formatarData(data?: string): string {
+    if (!data) {
+      return '';
+    }
+    const partes = data.split('-');
+    return `${partes[2]}/${partes[1]}`;
+  }
+
+  // Botão "Exportar relatório": abre a janela de impressão / salvar em PDF
+  exportarRelatorio(): void {
+    window.print();
   }
 }
