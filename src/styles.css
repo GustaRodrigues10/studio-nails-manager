@@ -548,6 +548,10 @@ h3 {
   margin-bottom: 8px;
 }
 
+.confirmacao-reserva .botao {
+  margin: 4px;
+}
+
 .confirmacao-reserva .resumo {
   background-color: var(--cor-fundo-areia);
   border-radius: var(--raio);

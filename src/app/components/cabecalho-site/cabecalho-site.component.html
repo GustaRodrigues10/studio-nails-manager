@@ -13,6 +13,10 @@
     <div class="acoes-site">
       <a *ngIf="!clientesService.clienteLogado" routerLink="/login" class="entrar">Entrar</a>
 
+      <a *ngIf="clientesService.clienteLogado" routerLink="/meus-agendamentos" class="entrar">
+        Meus agendamentos
+      </a>
+
       <span *ngIf="clientesService.clienteLogado">
         Olá, {{ clientesService.clienteLogado.nome.split(' ')[0] }}
         <button type="button" class="sair" (click)="sair()">(sair)</button>
