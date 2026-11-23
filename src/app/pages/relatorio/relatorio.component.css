@@ -1,223 +1,192 @@
-/* Área principal do relatório */
-.relatorio {
-  min-height: 100vh;
-  padding: 50px 6%;
-  background-color: #faf6f2;
+.periodo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  margin-bottom: 20px;
 }
 
-/* Título do relatório */
-.cabecalho-relatorio {
-  margin-bottom: 35px;
+.chip-periodo {
+  background-color: var(--cor-branco);
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-weight: 500;
 }
 
-.cabecalho-relatorio h1 {
-  font-family: Georgia, serif;
-  font-size: 36px;
-  font-weight: normal;
-  color: #302b2a;
-  margin-bottom: 10px;
+.aviso-demo {
+  margin-left: auto;
+  font-style: italic;
 }
 
-.cabecalho-relatorio p {
-  color: #77706e;
-  font-size: 15px;
-}
-
-/* Organização dos indicadores */
+/* INDICADORES */
 .indicadores {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  gap: 16px;
+  margin-bottom: 20px;
 }
 
-/* Aparência dos cartões */
-.cartao-indicador {
-  background-color: white;
-  padding: 25px;
-  border: 1px solid #eadfda;
-  border-radius: 10px;
+.rotulo-indicador {
+  font-size: 13px;
+  color: var(--cor-texto-suave);
 }
 
-.cartao-indicador span {
-  font-size: 14px;
-  color: #77706e;
+.indicadores strong {
+  display: block;
+  white-space: nowrap; /* não quebrar "R$ 12.480" em duas linhas */
+  font-size: 26px;
+  font-weight: 500;
+  margin: 8px 0;
 }
 
-.cartao-indicador h2 {
-  font-size: 28px;
-  color: #302b2a;
-  margin: 15px 0;
-}
-
-.cartao-indicador p {
-  font-size: 12px;
-  color: #54795f;
+.indicadores p {
   margin: 0;
-}
-
-/* Ajuste para telas menores */
-@media (max-width: 1000px) {
-  .indicadores {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 600px) {
-  .indicadores {
-    grid-template-columns: 1fr;
-  }
-
-  .cabecalho-relatorio h1 {
-    font-size: 28px;
-  }
-}
-
-/* Menu lateral */
-.menu-lateral {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 240px;
-  height: 100vh;
-  background-color: #f5ece9;
-  border-right: 1px solid #eadfda;
-  padding: 30px 20px;
-  display: flex;
-  flex-direction: column;
-  z-index: 10;
-}
-
-.logo-admin h2 {
-  font-family: Georgia, serif;
-  font-size: 30px;
-  font-weight: normal;
-  margin: 0;
-}
-
-.logo-admin span {
-  font-size: 9px;
-  letter-spacing: 2px;
-}
-
-.titulo-menu {
-  margin-top: 55px;
   font-size: 11px;
-  color: #914d60;
-  letter-spacing: 1px;
+  color: var(--cor-sucesso);
 }
 
-.menu-lateral nav {
+/* GRÁFICO E FAVORITOS */
+.graficos {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+  align-items: start;
+}
+
+.titulo-cartao {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 15px;
+  justify-content: space-between;
 }
 
-.menu-lateral a {
-  text-decoration: none;
-  color: #5c5250;
-  padding: 13px 15px;
-  border-radius: 6px;
-  font-size: 14px;
-}
-
-.menu-lateral a:hover,
-.menu-lateral a.ativo {
-  background-color: #ead9dc;
-  color: #914d60;
-}
-
-.rodape-menu {
-  margin-top: auto;
-}
-
-/* Espaço para o menu lateral */
-.relatorio {
-  margin-left: 240px;
-}
-
-/* Ajuste para telas pequenas */
-@media (max-width: 700px) {
-  .menu-lateral {
-    position: relative;
-    width: 100%;
-    height: auto;
-  }
-
-  .titulo-menu {
-    margin-top: 20px;
-  }
-
-  .relatorio {
-    margin-left: 0;
-  }
-}
-
-/* Gráfico de receita semanal */
-.secao-grafico {
-  background-color: white;
-  border: 1px solid #eadfda;
-  border-radius: 10px;
-  padding: 25px;
-  margin-top: 30px;
+.legenda {
+  font-size: 11px;
+  color: var(--cor-principal);
 }
 
 .grafico {
   display: flex;
   justify-content: space-around;
   align-items: flex-end;
-  gap: 15px;
+  gap: 16px;
+  height: 200px;
+  margin-top: 20px;
+  border-bottom: 1px solid var(--cor-borda);
 }
 
 .coluna-grafico {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
   flex: 1;
-  min-width: 0;
-  text-align: center;
+}
+
+.valor-grafico {
+  font-size: 11px;
+  color: var(--cor-texto-suave);
+  margin-bottom: 6px;
 }
 
 .area-barra {
-  height: 180px;
+  flex: 1;
+  width: 60%;
   display: flex;
   align-items: flex-end;
-  justify-content: center;
 }
 
 .barra {
-  width: 65%;
-  background-color: #ead9dc;
-  border-radius: 5px 5px 0 0;
+  width: 100%;
+  background-color: var(--cor-suave);
+  border-radius: 4px 4px 0 0;
 }
 
-.coluna-grafico:last-child .barra {
-  background-color: #914d60;
+.barra.destaque {
+  background-color: var(--cor-principal);
 }
 
-/* Tabela de agendamentos */
+.semana {
+  font-size: 11px;
+  color: var(--cor-texto-suave);
+  margin-top: 8px;
+  margin-bottom: -26px;
+}
+
+.favorito {
+  margin-top: 18px;
+}
+
+.linha-favorito {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.trilho {
+  height: 4px;
+  background-color: var(--cor-suave);
+  border-radius: 4px;
+}
+
+.preenchimento {
+  height: 100%;
+  background-color: var(--cor-principal);
+  border-radius: 4px;
+}
+
+/* TABELA */
 .secao-agendamentos {
-  background-color: white;
-  border: 1px solid #eadfda;
-  border-radius: 10px;
-  margin-top: 30px;
+  padding: 0;
   overflow: hidden;
 }
 
 .cabecalho-agendamentos {
-  padding: 25px;
-}
-
-.cabecalho-agendamentos h3 {
-  margin: 0 0 8px;
-  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 20px 22px 12px;
 }
 
 .cabecalho-agendamentos p {
-  margin: 0;
-  color: #77706e;
+  margin: 4px 0 0;
+  font-size: 12px;
+}
+
+.filtros-tabela {
+  display: flex;
+  gap: 10px;
+}
+
+.campo-pesquisa,
+.filtro-status {
+  padding: 8px 12px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  font-family: var(--fonte-texto);
   font-size: 13px;
+  background-color: var(--cor-branco);
+}
+
+.filtro-status {
+  color: var(--cor-principal);
+}
+
+.mensagem-api {
+  padding: 0 22px;
+  font-size: 13px;
+  color: var(--cor-texto-suave);
+}
+
+.secao-agendamentos .alerta {
+  margin: 0 22px 12px;
 }
 
 .tabela-container {
-  width: 100%;
   overflow-x: auto;
 }
 
@@ -228,86 +197,53 @@ table {
 }
 
 th {
-  background-color: #f5ece9;
+  background-color: var(--cor-fundo-areia);
   text-align: left;
-  padding: 15px;
-  color: #77706e;
-  font-weight: normal;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--cor-texto-suave);
+  padding: 12px 22px;
 }
 
 td {
-  padding: 16px 15px;
-  border-bottom: 1px solid #eadfda;
-  white-space: nowrap;
+  padding: 14px 22px;
+  border-bottom: 1px solid var(--cor-borda);
 }
 
-.status {
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-}
-
-.confirmado,
-.concluido {
-  background-color: #e5f0e8;
-  color: #54795f;
-}
-
-.cancelado {
-  background-color: #f5e4e7;
-  color: #914d60;
-}
-
-.cabecalho-agendamentos {
+.paginacao {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
+  padding: 14px 22px;
+  font-size: 12px;
 }
 
-.campo-pesquisa {
-  padding: 12px 15px;
-  border: 1px solid #eadfda;
+.botoes-paginacao button {
+  background: none;
+  border: none;
+  color: var(--cor-principal);
+  font-size: 12px;
+  padding: 4px 8px;
   border-radius: 6px;
-  font-size: 14px;
-  width: 250px;
-  max-width: 100%;
-  outline: none;
-}
-
-.campo-pesquisa:focus {
-  border-color: #914d60;
-}
-
-.filtro-status {
-  padding: 12px 15px;
-  border: 1px solid #eadfda;
-  border-radius: 6px;
-  background-color: white;
-  color: #302b2a;
-  font-size: 14px;
   cursor: pointer;
 }
 
-.filtro-status:focus {
-  border-color: #914d60;
+.botoes-paginacao button.ativa {
+  background-color: var(--cor-suave);
+  font-weight: 600;
 }
 
-/* Mensagens de carregamento e retorno da API */
-.mensagem-api {
-  margin: 16px 20px;
-  padding: 12px 16px;
-  border-radius: 8px;
-  background-color: #f7f1f0;
-  color: #6b5558;
-  font-size: 14px;
-  line-height: 1.5;
+.botoes-paginacao button:disabled {
+  color: var(--cor-texto-suave);
+  cursor: default;
 }
 
-/* Mensagem de erro na conexão */
-.mensagem-api.mensagem-erro {
-  background-color: #fff1f0;
-  color: #b42318;
-  border: 1px solid #f4c7c3;
+@media (max-width: 1100px) {
+  .indicadores {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .graficos {
+    grid-template-columns: 1fr;
+  }
 }

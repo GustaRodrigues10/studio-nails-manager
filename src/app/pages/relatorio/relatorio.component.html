@@ -1,150 +1,225 @@
-<aside class="menu-lateral">
-  <div class="logo-admin">
-    <h2>amélie</h2>
-    <span>ATELIÊ DE UNHAS</span>
-  </div>
+<div class="layout-admin">
+  <app-menu-admin></app-menu-admin>
 
-  <p class="titulo-menu">GESTÃO DO ATELIÊ</p>
+  <div class="conteudo-admin">
+    <header class="topo-admin">
+      <span class="texto-suave">Administração / Relatório</span>
 
-  <nav>
-    <a routerLink="/home" routerLinkActive="ativo"> Página Inicial </a>
+      <div class="usuario-admin">
+        <div class="avatar-iniciais">MC</div>
+        <div>
+          <strong>Marina Costa</strong>
+          <span>Administradora</span>
+        </div>
+      </div>
+    </header>
 
-    <a routerLink="/relatorio" routerLinkActive="ativo"> Relatório </a>
-
-    <a routerLink="/cadastro-servicos" routerLinkActive="ativo"> Cadastro de Serviços </a>
-  </nav>
-
-  <div class="rodape-menu">
-    <a routerLink="/">Ver site do ateliê</a>
-  </div>
-</aside>
-
-<main class="relatorio">
-  <div class="cabecalho-relatorio">
-    <h1>Um olhar sobre o ateliê</h1>
-
-    <p>Acompanhe seus agendamentos e os resultados do seu negócio.</p>
-  </div>
-
-  <section class="indicadores">
-    <div class="cartao-indicador">
-      <span>Receita do mês</span>
-      <h2>R$ 12.480</h2>
-      <p>+12,8% em relação a setembro</p>
-    </div>
-
-    <div class="cartao-indicador">
-      <span>Agendamentos</span>
-      <h2>186</h2>
-      <p>+18 novos neste mês</p>
-    </div>
-
-    <div class="cartao-indicador">
-      <span>Ticket médio</span>
-      <h2>R$ 67,10</h2>
-      <p>+5,2% em relação a setembro</p>
-    </div>
-
-    <div class="cartao-indicador">
-      <span>Taxa de ocupação</span>
-      <h2>82%</h2>
-      <p>+8 pontos percentuais</p>
-    </div>
-  </section>
-  <section class="secao-grafico">
-    <h3>Receita por semana</h3>
-
-    <div class="grafico">
-      <div class="coluna-grafico" *ngFor="let receita of receitasSemanais">
-        <span class="valor-grafico">
-          {{ receita.valor | currency: 'BRL' : 'symbol' : '1.0-0' }}
-        </span>
-
-        <div class="area-barra">
-          <div class="barra" [style.height.%]="(receita.valor / 4000) * 100"></div>
+    <main class="pagina-admin relatorio">
+      <div class="cabecalho-pagina-admin">
+        <div>
+          <h1>Um olhar sobre o ateliê</h1>
+          <p>Acompanhe seus agendamentos e os resultados do seu negócio.</p>
         </div>
 
-        <span class="semana">
-          {{ receita.semana }}
-        </span>
-      </div>
-    </div>
-  </section>
-
-  <section class="secao-agendamentos" id="agendamentos">
-    <div class="cabecalho-agendamentos">
-      <div>
-        <h3>Agendamentos de hoje</h3>
-        <p>24 de outubro de 2026</p>
-        <select
-          class="filtro-status"
-          [value]="statusSelecionado"
-          (change)="statusSelecionado = $any($event.target).value"
-        >
-          <option value="Todos os status">Todos os status</option>
-          <option value="Confirmado">Confirmado</option>
-          <option value="Concluído">Concluído</option>
-          <option value="Cancelado">Cancelado</option>
-        </select>
+        <button type="button" class="botao botao-contorno nao-imprimir" (click)="exportarRelatorio()">
+          Exportar relatório ⤓
+        </button>
       </div>
 
-      <input
-        type="text"
-        placeholder="Buscar cliente..."
-        [value]="pesquisaCliente"
-        (input)="pesquisaCliente = $any($event.target).value"
-        class="campo-pesquisa"
-      />
-    </div>
+      <div class="periodo">
+        <span class="chip-periodo">▦ 01 a 31 de outubro de 2026</span>
+        <span class="texto-suave">Comparado a setembro de 2026</span>
+        <span class="texto-suave aviso-demo">Indicadores e gráfico com valores demonstrativos</span>
+      </div>
 
-    <p *ngIf="carregandoAgendamentos" class="mensagem-api">Carregando agendamentos...</p>
+      <!-- INDICADORES (valores demonstrativos) -->
+      <section class="indicadores">
+        <div class="cartao">
+          <span class="rotulo-indicador">Receita do mês</span>
+          <strong>R$ 12.480</strong>
+          <p>+12,8% em relação a setembro</p>
+        </div>
 
-    <p *ngIf="erroAgendamentos" class="mensagem-api mensagem-erro">
-      {{ erroAgendamentos }}
-    </p>
+        <div class="cartao">
+          <span class="rotulo-indicador">Agendamentos</span>
+          <strong>186</strong>
+          <p>+18 novos neste mês</p>
+        </div>
 
-    <p
-      *ngIf="!carregandoAgendamentos && !erroAgendamentos && agendamentosFiltrados.length === 0"
-      class="mensagem-api"
-    >
-      Nenhum agendamento encontrado.
-    </p>
+        <div class="cartao">
+          <span class="rotulo-indicador">Ticket médio</span>
+          <strong>R$ 67,10</strong>
+          <p>+5,2% em relação a setembro</p>
+        </div>
 
-    <div class="tabela-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Horário</th>
-            <th>Cliente</th>
-            <th>Serviço</th>
-            <th>Profissional</th>
-            <th>Valor</th>
-            <th>Status</th>
-          </tr>
-        </thead>
+        <div class="cartao">
+          <span class="rotulo-indicador">Taxa de ocupação</span>
+          <strong>82%</strong>
+          <p>+8 pontos percentuais</p>
+        </div>
+      </section>
 
-        <tbody>
-          <tr *ngFor="let agendamento of agendamentosFiltrados">
-            <td>{{ agendamento.horario }}</td>
-            <td>{{ agendamento.cliente }}</td>
-            <td>{{ agendamento.servico }}</td>
-            <td>{{ agendamento.profissional }}</td>
-            <td>{{ agendamento.valor | currency: 'BRL' }}</td>
-            <td>
-              <span
-                class="status"
-                [ngClass]="{
-                  confirmado: agendamento.status === 'Confirmado',
-                  concluido: agendamento.status === 'Concluído',
-                  cancelado: agendamento.status === 'Cancelado',
-                }"
-              >
-                {{ agendamento.status }}
+      <div class="graficos">
+        <!-- GRÁFICO DE RECEITA (valores demonstrativos) -->
+        <section class="cartao">
+          <div class="titulo-cartao">
+            <h3>Receita por semana</h3>
+            <span class="legenda">● Outubro de 2026</span>
+          </div>
+
+          <div class="grafico">
+            <div
+              class="coluna-grafico"
+              *ngFor="let receita of receitasSemanais; let ultima = last"
+            >
+              <span class="valor-grafico">
+                {{ receita.valor | currency: 'BRL' : 'symbol' : '1.0-0' }}
               </span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-</main>
+
+              <div class="area-barra">
+                <div
+                  class="barra"
+                  [class.destaque]="ultima"
+                  [style.height.%]="(receita.valor / 4000) * 100"
+                ></div>
+              </div>
+
+              <span class="semana">{{ receita.semana }}</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- FAVORITOS: calculado com os agendamentos da API -->
+        <section class="cartao">
+          <h3>Os favoritos das clientes</h3>
+
+          <p *ngIf="servicosFavoritos.length === 0" class="texto-suave">Sem dados ainda.</p>
+
+          <div class="favorito" *ngFor="let favorito of servicosFavoritos">
+            <div class="linha-favorito">
+              <span>{{ favorito.nome }}</span>
+              <strong>{{ favorito.percentual }}%</strong>
+            </div>
+            <div class="trilho">
+              <div class="preenchimento" [style.width.%]="favorito.percentual"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- TABELA DE AGENDAMENTOS (dados da API) -->
+      <section class="cartao secao-agendamentos" id="agendamentos">
+        <div class="cabecalho-agendamentos">
+          <div>
+            <h3>Agendamentos</h3>
+            <p class="texto-suave">{{ agendamentos.length }} agendamentos cadastrados</p>
+          </div>
+
+          <div class="filtros-tabela nao-imprimir">
+            <input
+              type="text"
+              placeholder="⌕ Buscar cliente"
+              [value]="pesquisaCliente"
+              (input)="alterarPesquisa($any($event.target).value)"
+              class="campo-pesquisa"
+            />
+
+            <select
+              class="filtro-status"
+              [value]="statusSelecionado"
+              (change)="alterarStatus($any($event.target).value)"
+            >
+              <option value="Todos os status">Todos os status</option>
+              <option value="Confirmado">Confirmado</option>
+              <option value="Concluído">Concluído</option>
+              <option value="Cancelado">Cancelado</option>
+            </select>
+          </div>
+        </div>
+
+        <p *ngIf="carregandoAgendamentos" class="mensagem-api">Carregando agendamentos...</p>
+
+        <p *ngIf="erroAgendamentos" class="alerta alerta-erro">
+          {{ erroAgendamentos }}
+        </p>
+
+        <p
+          *ngIf="!carregandoAgendamentos && !erroAgendamentos && agendamentosFiltrados.length === 0"
+          class="mensagem-api"
+        >
+          Nenhum agendamento encontrado.
+        </p>
+
+        <div class="tabela-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Horário</th>
+                <th>Cliente</th>
+                <th>Serviço</th>
+                <th>Profissional</th>
+                <th>Valor</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let agendamento of agendamentosDaPagina">
+                <td>
+                  {{ agendamento.horario }}
+                  <small *ngIf="agendamento.data" class="texto-suave">
+                    · {{ formatarData(agendamento.data) }}
+                  </small>
+                </td>
+                <td>{{ agendamento.cliente }}</td>
+                <td>{{ agendamento.servico }}</td>
+                <td>{{ agendamento.profissional }}</td>
+                <td>{{ agendamento.valor | currency: 'BRL' }}</td>
+                <td>
+                  <span
+                    class="etiqueta"
+                    [ngClass]="{
+                      'etiqueta-sucesso': agendamento.status === 'Confirmado' || agendamento.status === 'Concluído',
+                      'etiqueta-erro': agendamento.status === 'Cancelado',
+                    }"
+                  >
+                    {{ agendamento.status }}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="paginacao nao-imprimir" *ngIf="agendamentosFiltrados.length > 0">
+          <span class="texto-suave">
+            Mostrando {{ agendamentosDaPagina.length }} de {{ agendamentosFiltrados.length }} agendamentos
+          </span>
+
+          <div class="botoes-paginacao">
+            <button type="button" (click)="irParaPagina(paginaAtual - 1)" [disabled]="paginaAtual === 1">
+              ← Anterior
+            </button>
+
+            <button
+              type="button"
+              *ngFor="let pagina of paginas"
+              (click)="irParaPagina(pagina)"
+              [class.ativa]="pagina === paginaAtual"
+            >
+              {{ pagina }}
+            </button>
+
+            <button
+              type="button"
+              (click)="irParaPagina(paginaAtual + 1)"
+              [disabled]="paginaAtual === totalPaginas"
+            >
+              Próxima →
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
