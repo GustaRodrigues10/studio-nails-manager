@@ -1,0 +1,94 @@
+.pagina-meus {
+  padding: 40px 0 56px;
+  min-height: 60vh;
+}
+
+.pagina-meus h1 {
+  font-size: 44px;
+  margin-bottom: 8px;
+}
+
+.introducao {
+  margin: 0 0 24px;
+}
+
+.aviso-login {
+  max-width: 520px;
+  margin-top: 24px;
+}
+
+.aviso-login p {
+  margin: 0 0 16px;
+}
+
+.lista-agendamentos {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.item-agendamento {
+  display: grid;
+  grid-template-columns: 120px 1fr auto;
+  gap: 24px;
+  align-items: center;
+}
+
+.data {
+  text-align: center;
+  background-color: var(--cor-fundo-areia);
+  border-radius: 8px;
+  padding: 12px 8px;
+}
+
+.data strong {
+  display: block;
+  font-size: 14px;
+}
+
+.data span {
+  font-family: var(--fonte-titulo);
+  font-size: 26px;
+  color: var(--cor-principal);
+}
+
+.detalhes h2 {
+  font-family: var(--fonte-titulo);
+  font-size: 26px;
+  font-weight: 500;
+}
+
+.detalhes p {
+  margin: 4px 0 8px;
+  font-size: 13px;
+}
+
+.acoes {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  max-width: 220px;
+  text-align: right;
+}
+
+.botao-cancelar {
+  background-color: var(--cor-erro-fundo);
+  color: var(--cor-erro);
+}
+
+.botao-cancelar:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 700px) {
+  .item-agendamento {
+    grid-template-columns: 1fr;
+  }
+
+  .acoes {
+    align-items: flex-start;
+    text-align: left;
+  }
+}

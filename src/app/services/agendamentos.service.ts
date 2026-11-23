@@ -11,6 +11,7 @@ export interface Agendamento {
   valor: number;
   status: string;
   data?: string; // formato AAAA-MM-DD (usado nos agendamentos feitos pelo site)
+  clienteEmail?: string; // identifica a cliente que agendou pelo site
 }
 
 @Injectable({
@@ -29,6 +30,11 @@ export class AgendamentosService {
   // POST - Cria um novo agendamento no JSON-Server
   criarAgendamento(agendamento: Omit<Agendamento, 'id'>): Observable<Agendamento> {
     return this.http.post<Agendamento>(this.apiUrl, agendamento);
+  }
+
+  // PATCH - Altera somente o status de um agendamento (ex.: cancelar)
+  atualizarStatus(id: string, status: string): Observable<Agendamento> {
+    return this.http.patch<Agendamento>(`${this.apiUrl}/${id}`, { status });
   }
 
   // Pesquisa e filtra os dados recebidos da API

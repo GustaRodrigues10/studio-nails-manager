@@ -49,6 +49,7 @@ export class ReservaService {
       data: reserva.data,
       horario: reserva.horario,
       cliente: cliente.nome,
+      clienteEmail: cliente.email,
       servico: reserva.servico,
       profissional: reserva.profissional,
       valor: reserva.valor,

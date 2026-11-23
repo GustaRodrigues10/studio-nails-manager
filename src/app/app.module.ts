@@ -13,6 +13,7 @@ import { Sobre } from './pages/sobre/sobre.component';
 import { DetalheServico } from './pages/detalhe-servico/detalhe-servico.component';
 import { Login } from './pages/login/login.component';
 import { CadastroCliente } from './pages/cadastro-cliente/cadastro-cliente.component';
+import { MeusAgendamentos } from './pages/meus-agendamentos/meus-agendamentos.component';
 import { Logo } from './components/logo/logo.component';
 import { CabecalhoSite } from './components/cabecalho-site/cabecalho-site.component';
 import { RodapeSite } from './components/rodape-site/rodape-site.component';
@@ -32,6 +33,7 @@ registerLocaleData(localePt);
     DetalheServico,
     Login,
     CadastroCliente,
+    MeusAgendamentos,
     Logo,
     CabecalhoSite,
     RodapeSite,
