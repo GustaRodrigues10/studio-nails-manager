@@ -1,0 +1,103 @@
+<div class="tela-acesso">
+  <!-- LATERAL COM FOTO -->
+  <aside class="lateral-acesso">
+    <a routerLink="/home" style="text-decoration: none"><app-logo></app-logo></a>
+
+    <div>
+      <span class="sobretitulo">Um respiro no seu dia</span>
+      <h2>Bem-vinda ao seu<br />momento.</h2>
+      <p>Um espaço para desacelerar, se cuidar e celebrar a beleza dos pequenos detalhes.</p>
+      <p class="local">⌖ Seu refúgio em Pinheiros · São Paulo</p>
+    </div>
+  </aside>
+
+  <!-- FORMULÁRIO -->
+  <div class="area-formulario-acesso">
+    <div class="topo-acesso">
+      <a routerLink="/home" class="voltar">← Voltar ao menu</a>
+      <span class="texto-suave">Precisa de ajuda? (11) 99945-0820</span>
+    </div>
+
+    <!-- Confirmação após login com reserva pendente -->
+    <div *ngIf="agendamentoConfirmado && reservaConfirmada" class="formulario-acesso">
+      <div class="confirmacao-reserva">
+        <div class="icone-ok">✓</div>
+        <h2>Agendamento confirmado!</h2>
+        <p class="texto-suave">Te esperamos no ateliê.</p>
+        <div class="resumo">
+          <strong>{{ reservaConfirmada.servico }}</strong><br />
+          {{ reservaConfirmada.profissional }} · {{ reservaConfirmada.dataTexto }}<br />
+          às {{ reservaConfirmada.horario }} · {{ reservaConfirmada.valor | currency: 'BRL' }}
+        </div>
+        <a routerLink="/home" class="botao botao-principal">Voltar ao início</a>
+      </div>
+    </div>
+
+    <form
+      *ngIf="!agendamentoConfirmado"
+      class="formulario-acesso"
+      [formGroup]="formularioLogin"
+      (ngSubmit)="entrar()"
+    >
+      <span class="sobretitulo">É bom ter você por aqui</span>
+      <h1>Seu cuidado te espera.</h1>
+      <p class="introducao">
+        Entre na sua conta para confirmar seu agendamento e ter seus momentos de cuidado sempre por
+        perto.
+      </p>
+
+      <p *ngIf="mensagemErro" class="alerta alerta-erro" role="alert">{{ mensagemErro }}</p>
+
+      <div class="campo">
+        <label for="email">E-mail</label>
+        <input
+          id="email"
+          type="email"
+          placeholder="seunome@email.com"
+          formControlName="email"
+          [attr.aria-invalid]="campoInvalido('email')"
+        />
+        <small *ngIf="campoInvalido('email')" class="mensagem-erro" role="alert">
+          Informe um e-mail válido.
+        </small>
+      </div>
+
+      <div class="campo">
+        <label for="senha">Senha</label>
+        <div class="senha-com-botao">
+          <input
+            id="senha"
+            [type]="mostrarSenha ? 'text' : 'password'"
+            placeholder="Digite sua senha"
+            formControlName="senha"
+            [attr.aria-invalid]="campoInvalido('senha')"
+          />
+          <button type="button" (click)="mostrarSenha = !mostrarSenha">
+            {{ mostrarSenha ? 'Ocultar' : 'Mostrar' }}
+          </button>
+        </div>
+        <small *ngIf="campoInvalido('senha')" class="mensagem-erro" role="alert">
+          Informe sua senha.
+        </small>
+      </div>
+
+      <button type="submit" class="botao botao-principal botao-bloco" [disabled]="enviando">
+        {{ enviando ? 'Entrando...' : 'Entrar na minha conta →' }}
+      </button>
+
+      <p class="troca-acesso">
+        Seu primeiro encontro por aqui? <a routerLink="/cadastro">Crie sua conta</a>
+      </p>
+
+      <!-- Lembrete da reserva escolhida na página do serviço -->
+      <div *ngIf="reservaService.reservaPendente as reserva" class="aviso-reserva">
+        <span>▣</span>
+        <div>
+          <strong>Seu momento está quase reservado</strong>
+          {{ reserva.servico }} · {{ reserva.profissional }} · {{ reserva.dataCurta }}, às
+          {{ reserva.horario }}
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
