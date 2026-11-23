@@ -10,6 +10,7 @@ export interface Agendamento {
   profissional: string;
   valor: number;
   status: string;
+  data?: string; // formato AAAA-MM-DD (usado nos agendamentos feitos pelo site)
 }
 
 @Injectable({
@@ -23,6 +24,11 @@ export class AgendamentosService {
   // GET - Busca os agendamentos no JSON-Server
   listarAgendamentos(): Observable<Agendamento[]> {
     return this.http.get<Agendamento[]>(this.apiUrl);
+  }
+
+  // POST - Cria um novo agendamento no JSON-Server
+  criarAgendamento(agendamento: Omit<Agendamento, 'id'>): Observable<Agendamento> {
+    return this.http.post<Agendamento>(this.apiUrl, agendamento);
   }
 
   // Pesquisa e filtra os dados recebidos da API
