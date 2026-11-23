@@ -97,6 +97,19 @@
       />
     </div>
 
+    <p *ngIf="carregandoAgendamentos" class="mensagem-api">Carregando agendamentos...</p>
+
+    <p *ngIf="erroAgendamentos" class="mensagem-api mensagem-erro">
+      {{ erroAgendamentos }}
+    </p>
+
+    <p
+      *ngIf="!carregandoAgendamentos && !erroAgendamentos && agendamentosFiltrados.length === 0"
+      class="mensagem-api"
+    >
+      Nenhum agendamento encontrado.
+    </p>
+
     <div class="tabela-container">
       <table>
         <thead>
