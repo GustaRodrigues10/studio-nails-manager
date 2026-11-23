@@ -1,0 +1,67 @@
+<app-cabecalho-site></app-cabecalho-site>
+
+<main class="container pagina-meus">
+  <span class="sobretitulo">Sua agenda Amélie</span>
+  <h1>Meus agendamentos</h1>
+
+  <!-- Cliente sem login -->
+  <div *ngIf="!clientesService.clienteLogado" class="cartao aviso-login">
+    <p>Entre na sua conta para ver e cancelar seus agendamentos.</p>
+    <a routerLink="/login" class="botao botao-principal">Entrar na minha conta</a>
+  </div>
+
+  <ng-container *ngIf="clientesService.clienteLogado">
+    <p class="texto-suave introducao">
+      Cancelamentos são aceitos com até 24 horas de antecedência.
+    </p>
+
+    <p *ngIf="mensagem" class="alerta alerta-sucesso" role="status">{{ mensagem }}</p>
+    <p *ngIf="erro" class="alerta alerta-erro" role="alert">{{ erro }}</p>
+    <p *ngIf="carregando" class="texto-suave">Carregando seus agendamentos...</p>
+
+    <div *ngIf="!carregando && !erro && agendamentos.length === 0" class="cartao aviso-login">
+      <p>Você ainda não tem agendamentos.</p>
+      <a routerLink="/home" fragment="servicos" class="botao botao-principal">Escolher meu cuidado ↗</a>
+    </div>
+
+    <div class="lista-agendamentos">
+      <article class="cartao item-agendamento" *ngFor="let agendamento of agendamentos">
+        <div class="data">
+          <strong>{{ formatarData(agendamento.data) }}</strong>
+          <span>{{ agendamento.horario }}</span>
+        </div>
+
+        <div class="detalhes">
+          <h2>{{ agendamento.servico }}</h2>
+          <p class="texto-suave">
+            {{ agendamento.profissional }} · {{ agendamento.valor | currency: 'BRL' }}
+          </p>
+          <span
+            class="etiqueta"
+            [class.etiqueta-sucesso]="agendamento.status === 'Confirmado' || agendamento.status === 'Concluído'"
+            [class.etiqueta-erro]="agendamento.status === 'Cancelado'"
+          >
+            {{ agendamento.status }}
+          </span>
+        </div>
+
+        <div class="acoes">
+          <button
+            *ngIf="agendamento.status === 'Confirmado'"
+            type="button"
+            class="botao botao-cancelar"
+            [disabled]="!podeCancelar(agendamento) || cancelandoId === agendamento.id"
+            (click)="cancelar(agendamento)"
+          >
+            {{ cancelandoId === agendamento.id ? 'Cancelando...' : 'Cancelar' }}
+          </button>
+          <small *ngIf="agendamento.status === 'Confirmado' && !podeCancelar(agendamento)" class="campo-dica">
+            Faltam menos de 24 horas. Fale com o ateliê: (11) 99945-0820.
+          </small>
+        </div>
+      </article>
+    </div>
+  </ng-container>
+</main>
+
+<app-rodape-site></app-rodape-site>
